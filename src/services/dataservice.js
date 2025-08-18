@@ -19,6 +19,9 @@ class AddData {
  saveviewBook(page = 1, limit = 10) {
     return axios.get(`http://localhost:4000/viewallbooks?page=${page}&limit=${limit}`);
   }
+   saveviewStudent(page = 1, limit = 10) {
+    return axios.get(`http://localhost:4000/viewstudent?page=${page}&limit=${limit}`);
+  }
 }
 export default new AddData();
 

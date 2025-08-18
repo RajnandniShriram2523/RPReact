@@ -9,37 +9,47 @@ export default function ViewBook() {
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(false);
 
+    // Fetch books for a given page
     const fetchBooks = (page) => {
         setLoading(true);
-        viewBook.saveviewBook(page, 3)
+        viewBook.saveviewBook(page, 2) // You are requesting 5 books per page
             .then((res) => {
                 const data = res.data;
                 setBooks(data.BookList || []);
-                setCurrentPage(data.currentPage || 1);
-                setTotalPages(data.totalPages || 1);
+                setCurrentPage(data.currentPage || page);
+                setTotalPages(data.totalPages || 1); // Use totalPages from backend
+            })
+            .catch((err) => {
+                console.error("Failed to fetch books:", err);
+                setBooks([]);
             })
             .finally(() => setLoading(false));
     };
 
+    // Fetch books whenever currentPage changes
     useEffect(() => {
         fetchBooks(currentPage);
     }, [currentPage]);
 
+    // Pagination Handlers
     const handlePrev = () => {
-        if (currentPage > 1) setCurrentPage(prev => prev - 1);
+        if (currentPage > 1) {
+            setCurrentPage(prev => prev - 1);
+        }
     };
 
     const handleNext = () => {
-        if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
+        if (currentPage < totalPages) {
+            setCurrentPage(prev => prev + 1);
+        }
     };
 
-    // Optional: Delete and Update handlers (implement as needed)
     const handleDelete = (id) => {
-        console.log("Delete book with id:", id);
+        console.log("Delete book with ID:", id);
     };
 
     const handleUpdate = (id) => {
-        console.log("Update book with id:", id);
+        console.log("Update book with ID:", id);
     };
 
     return (
@@ -67,38 +77,35 @@ export default function ViewBook() {
                                     <th>Update</th>
                                 </tr>
                             </thead>
-                           
-                                    <tbody>
-                                        {books.length > 0 ? (
-                                            books.map((book, index) => (
-                                                <tr key={book.book_id}>
-                                                    <td>{(currentPage - 1) * 6 + index + 1}</td>
-                                                    <td>{book.book_title}</td>
-                                                    <td>{book.book_author}</td>
-                                                    <td>{book.book_price}</td>
-                                                   <td>{book.book_published_date?.substring(0, 10)}</td>
-
-                                                    <td>{book.isbn_code}</td>
-                                                    <td>{book.category_name || "Unknown Category"}</td>
-                                                    <td>{book.status || "N/A"}</td>
-                                                    <td>
-                                                        <button onClick={() => handleDelete(book.book_id)}>🗑️</button>
-                                                    </td>
-                                                    <td>
-                                                        <button onClick={() => handleUpdate(book.book_id)}>✍️</button>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        ) : (
-                                            <tr>
-                                                <td colSpan="10" className="text-center">No books found</td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-
-                              
+                            <tbody>
+                                {books.length > 0 ? (
+                                    books.map((book, index) => (
+                                        <tr key={book.book_id}>
+                                            <td>{(currentPage - 1) * 5 + index + 1}</td>
+                                            <td>{book.book_title}</td>
+                                            <td>{book.book_author}</td>
+                                            <td>{book.book_price}</td>
+                                            <td>{book.book_published_date?.substring(0, 10)}</td>
+                                            <td>{book.isbn_code}</td>
+                                            <td>{book.category_name || "Unknown"}</td>
+                                            <td>{book.status || "N/A"}</td>
+                                              <td>
+                                                <button className="link-button" onClick={() => handleDelete(cat.category_id)}>🗑️</button>
+                                            </td>
+                                            <td>
+                                                <button className="link-button" onClick={() => handleUpdate(cat.category_id)}>✍️</button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="10" className="text-center">No books found</td>
+                                    </tr>
+                                )}
+                            </tbody>
                         </table>
 
+                        {/* Pagination Controls */}
                         <div className="pagination-boxed">
                             <button onClick={handlePrev} disabled={currentPage === 1}>Prev</button>
                             {[...Array(totalPages)].map((_, index) => {

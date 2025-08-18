@@ -38,7 +38,7 @@ export default function ViewCategory() {
             <AdminSidebar />
             <div className="category-container">
 
-                <h3 className="category-title">CATEGORY LIST</h3>
+                <h3 className="category-title">Category List</h3>
 
                 {loading ? (
                     <p className="text-center">Loading categories...</p>

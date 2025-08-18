@@ -9,11 +9,11 @@ import Contact from "./contact";
 import Login from '../src/component/login';
 import AdminSidebar from '../src/component/adminslidebar';
 import AddCategory from '../src/component/addcategory';
-// import viewcat from './component/ViewCategory';
 import Addbook from "../src/component/addbook";
 import AddStudent from "../src/component/addstudent";
 import ViewCategory from "./component/viewcategory";
 import ViewBook from "./component/viewbook";
+import Viewstudent from "./component/viewstudent";
 
 class App extends React.Component{
   render() {
@@ -59,6 +59,7 @@ class App extends React.Component{
           <Route path="/addbook" element={<Addbook />} />
           <Route path="/viewbook" element={<ViewBook />} />
           <Route path="/addstudent" element={<AddStudent />} />
+          <Route path="/viewstudent" element={<Viewstudent />}/>
 
         </Routes>
       </BrowserRouter>
