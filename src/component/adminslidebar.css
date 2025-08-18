@@ -1,0 +1,40 @@
+/* adminsidebar.css */
+
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  padding: 20px;
+  height: 100vh;
+  color: white;
+  /* position:fixed; */
+   border: 2px solid rgb(222, 13, 121);
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ecf0f1;
+}
+
+.sidebar-list {
+  list-style-type: none;
+  padding: 0;
+ }
+
+.sidebar-button {
+  display: block;
+  background-color: #34495e;
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.sidebar-button:hover {
+  background-color: #1abc9c;
+  color: white;
+}

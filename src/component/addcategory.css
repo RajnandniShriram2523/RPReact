@@ -1,0 +1,48 @@
+.main2{
+    width:100vw;
+    height:100vh;
+    /* background-color: rgb(215, 215, 212); */
+     background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
+    background-size: cover;
+    background-repeat: no-repeat; 
+    display:flex;
+    /* align-items: center; */
+    position:fixed;
+    gap:20%;
+    /* justify-content: center;  */
+
+}
+
+
+.form1{
+    width:45%;
+    height:30%;
+    margin-top:10%;
+    /* background-color: rgb(71, 77, 80); */
+    /* display:flex; */
+    /* align-items: center; */
+    text-align: center;
+   /* justify-content: center; */
+    flex-direction: column; 
+
+}
+
+input{
+    width:400px;
+    height:50px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.btn
+{
+   width:200px;
+   height:40px;
+ background-color: rgb(16, 177, 221);
+   color:black
+}
+.btn:hover{
+    border: 2px solid white;
+   color: white;
+   background-color: blue;
+}

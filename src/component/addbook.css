@@ -1,0 +1,89 @@
+.main3{
+    width:100vw;
+    height:100vh;
+     /* background-color: rgb(215, 215, 212);  */
+     background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
+  background-size: cover;
+  background-repeat: no-repeat; 
+    display:flex;
+    gap:20%;
+   
+
+}
+h2{
+      font-family: 'Pacifico', cursive;
+}
+
+
+.form2{
+    width:45%;
+    height:90%;
+    margin-top:50px;
+    /* background-color:white; */
+      display:flex;  
+     text-align: center;
+    align-items: center;
+    /* text-align: center; */
+   /* justify-content: center; */
+    flex-direction: column; 
+    color:white;
+    
+
+}
+
+input[type='text']{
+    width:90%;
+    height:50px;
+    border-radius: 10px;
+    text-decoration: none;
+} 
+.buttons{
+       width:90%;
+   height:40px;
+   align-items: center;
+ /* background-color: rgb(116, 163, 163); */
+   color:black;
+    display:flex;  
+    justify-content: space-between;
+    color:red;
+}
+.bttn
+{
+   width:40%;
+   height:40px;
+ background-color: rgb(23, 115, 143);
+   color:black;
+   border-radius:10px;
+   
+   
+}
+.btnn
+{
+   width:40%;
+   height:40px;
+ background-color:red;
+   color:black;
+   border-radius:10px;
+   
+
+   
+}
+.btn:hover{
+    border: 2px solid white;
+   color: white;
+       background-color: rgb(255, 0, 153);
+}
+.message {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.success {
+    color: lightgreen;
+}
+
+.error {
+    color: red;
+}

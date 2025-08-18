@@ -1,0 +1,94 @@
+.wall{
+    background-color: red;
+    width:100%;
+    height: 600px;
+    /* position:relative; */
+}
+
+
+/* .slider { */
+      /* overflow: hidden; */
+      /* width:100%;
+      height:450px; */
+       /* background-color: blueviolet; 
+        position:absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 200px;
+  right:100px; 
+  z-index:1;
+ top:100px;
+
+     } */
+
+     .slide-track {
+      display: flex;
+       width:100%; 
+      height:80%;
+      background-color: pink;
+      position:relative;
+       z-index: 4; 
+     
+     
+      width: calc(600px * 10);
+      animation: scroll 20s linear infinite;
+      
+       
+     
+    } 
+
+    .slide {
+      width: 600px;
+      flex-shrink: 0;
+      background-color: pink;
+      position: relative;
+      z-index: 2;
+      top:1
+    }
+
+    .slide img {
+      width:100%;
+      height:100%;
+     
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-3000px); }
+    }
+    .headling {
+  width: 40%;
+  height: 50%;
+  /* background-color: rgb(43, 255, 0); */
+  border: 2px solid black;
+  color:yellow;
+   position: absolute;
+     z-index: 5;
+     top:150px;
+     left:10%;
+  /*top: 0;
+  left: 0;
+ */
+} 
+.typewriter {
+  display: inline-block;
+  font-family: monospace;
+  font-size: 2rem;
+  color:black;
+  white-space: pre-wrap;        /* Keep line breaks */
+  overflow: hidden;
+  border-right: 2px solid black;
+  width: 0;
+  animation: typing 8s steps(80, end) forwards, blink 0.7s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { border-color: black; }
+  50% { border-color: transparent; }
+}
