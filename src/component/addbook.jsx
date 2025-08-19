@@ -1,182 +1,164 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AdminSidebar from "./adminslidebar";
-import "../component/addbook.css";
-import AddBook from "../services/dataservice";
+import dataservice from "../services/dataservice";
+import "./addbook.css";
 
-export default class Addbook extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      book_title: "",
-      book_author: "",
-      book_price: "",
-      book_published_date: "",
-      isbn_code: "",
-      category_id: "",
-      status: "",
-      msg: "",
-      msgType: "", // "error" or "success"
-    };
-  }
+export default function AddBook() {
+  const [categories, setCategories] = useState([]);
+  const [formData, setFormData] = useState({
+    book_title: "",
+    book_author: "",
+    book_price: "",
+    book_published_date: "",
+    isbn_code: "",
+    category_id: "",
+    status: ""
+  });
+  const [msg, setMsg] = useState("");
+  const [msgType, setMsgType] = useState("");
 
-  handleInputChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+  useEffect(() => {
+    dataservice.saveviewCategory(1,100)
+      .then(res => {
+        // Extract categorylist from response data
+        setCategories(res.data.categorylist || []);
+      })
+      .catch(err => {
+        console.error("Failed to fetch categories:", err);
+      });
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  validateForm = () => {
-    const {
-      book_title,
-      book_author,
-      book_price,
-      book_published_date,
-      isbn_code,
-      category_id,
-      status,
-    } = this.state;
-
-    if (
-      !book_title.trim() ||
-      !book_author.trim() ||
-      !book_price.trim() ||
-      !book_published_date.trim() ||
-      !isbn_code.trim() ||
-      !category_id.trim() ||
-      !status.trim()
-    ) {
-      this.setState({ msg: "❗ All fields are required.", msgType: "error" });
+  const validateForm = () => {
+    const { book_title, book_author, book_price, book_published_date, isbn_code, category_id, status } = formData;
+    if (!book_title || !book_author || !book_price || !book_published_date || !isbn_code || !category_id || !status) {
+      setMsg("❗ All fields are required.");
+      setMsgType("error");
       return false;
     }
-
     return true;
   };
 
-  sendBookToServer = () => {
-    if (!this.validateForm()) return;
+  const handleSubmit = () => {
+    if (!validateForm()) return;
 
-    AddBook.savebook(this.state)
-      .then((result) => {
-        this.setState({
-          msg: "✅ Book added successfully!",
-          msgType: "success",
+    dataservice.savebook(formData)
+      .then(() => {
+        setMsg("✅ Book added successfully!");
+        setMsgType("success");
+        setFormData({
           book_title: "",
           book_author: "",
           book_price: "",
           book_published_date: "",
           isbn_code: "",
           category_id: "",
-          status: "",
+          status: ""
         });
       })
-      .catch((err) => {
-        this.setState({
-          msg: err?.message || "❗ Something went wrong!",
-          msgType: "error",
-        });
+      .catch(err => {
+        console.error("Add book error:", err);
+        setMsg("❗ Something went wrong!");
+        setMsgType("error");
       });
   };
 
-  handleClear = () => {
-    this.setState({
+  const handleClear = () => {
+    setFormData({
       book_title: "",
       book_author: "",
       book_price: "",
       book_published_date: "",
       isbn_code: "",
       category_id: "",
-      status: "",
-      msg: "✅ Form cleared",
-      msgType: "success",
+      status: ""
     });
+    setMsg("Form cleared");
+    setMsgType("success");
   };
 
-  render() {
-    const { msg, msgType } = this.state;
+  return (
+    <div className="main3">
+      <AdminSidebar />
+      <div className="form2">
+        <h2>ADD BOOK</h2>
+        {/* Form Fields */}
+        <input
+          type="text"
+          name="book_title"
+          placeholder="Enter Book_Title"
+          value={formData.book_title}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="book_author"
+          placeholder="Enter Book_Author"
+          value={formData.book_author}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="book_price"
+          placeholder="Enter Book_Price"
+          value={formData.book_price}
+          onChange={handleChange}
+        />
+        <input
+          type="date"
+          name="book_published_date"
+          placeholder="Enter Published_Date"
+          value={formData.book_published_date}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="isbn_code"
+          placeholder="Enter ISBN_Code"
+          value={formData.isbn_code}
+          onChange={handleChange}
+        />
 
-    return (
-      <div className="main3">
-        <AdminSidebar />
-        <div className="form2">
-          <h2>ADD BOOK</h2><br/>
+        {/* Category Dropdown */}
+        <select
+          name="category_id"
+          value={formData.category_id}
+          onChange={handleChange}
+        >
+          <option value="">-- Select Category --</option>
+          {categories.map(cat => (
+            <option key={cat.category_id} value={cat.category_id}>
+              {cat.category_name}
+            </option>
+          ))}
+        </select>
 
-          <input
-            type="text"
-            name="book_title"
-            placeholder="Enter Book Title"
-            value={this.state.book_title}
-            onChange={this.handleInputChange}
-          />
-          <br />
+        <input
+          type="text"
+          name="status"
+          placeholder="Status / Total Copies"
+          value={formData.status}
+          onChange={handleChange}
+        />
 
-          <input
-            type="text"
-            name="book_author"
-            placeholder="Enter Book Author"
-            value={this.state.book_author}
-            onChange={this.handleInputChange}
-          />
-          <br />
-
-          <input
-            type="text"
-            name="book_price"
-            placeholder="Enter Book Price"
-            value={this.state.book_price}
-            onChange={this.handleInputChange}
-          />
-          <br />
-
-          <input
-            type="text"
-            name="book_published_date"
-            placeholder="Enter Book Published Date"
-            value={this.state.book_published_date}
-            onChange={this.handleInputChange}
-          />
-          <br />
-
-          <input
-            type="text"
-            name="isbn_code"
-            placeholder="Enter ISBN Code"
-            value={this.state.isbn_code}
-            onChange={this.handleInputChange}
-          />
-          <br />
-
-          <input
-            type="text"
-            name="category_id"
-            placeholder="Enter Category ID"
-            value={this.state.category_id}
-            onChange={this.handleInputChange}
-          />
-          <br />
-
-          <input
-            type="text"
-            name="status"
-            placeholder="Enter Total Copies"
-            value={this.state.status}
-            onChange={this.handleInputChange}
-          />
-          <br />
-
-          <div className="buttons">
-            <button className="bttn" type="button" onClick={this.sendBookToServer}>
-              Add Book
-            </button>
-            <button className="btnn" type="button" onClick={this.handleClear}>
-              Clear
-            </button>
-          </div>
-
-          {msg && (
-            <div className={`message ${msgType === "error" ? "error" : "success"}`}>
-              <p>{msg}</p>
-            </div>
-          )}
+        {/* Buttons */}
+        <div className="buttons1">
+          <button className="bttn1" type="button" onClick={handleSubmit}> Add Book   </button>
+          <button className="btnn1" type="button" onClick={handleClear}>
+            Clear
+          </button>
         </div>
+        {/* Feedback Message */}
+        {msg && (
+          <div className={`message ${msgType === "error" ? "error" : "success"}`}>
+            {msg}
+          </div>
+        )}
       </div>
-    );
-  }
+    </div>
+  );
 }

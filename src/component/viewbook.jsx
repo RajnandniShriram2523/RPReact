@@ -12,7 +12,7 @@ export default function ViewBook() {
     // Fetch books for a given page
     const fetchBooks = (page) => {
         setLoading(true);
-        viewBook.saveviewBook(page, 2) // You are requesting 5 books per page
+        viewBook.saveviewBook(page, 6) // You are requesting 5 books per page
             .then((res) => {
                 const data = res.data;
                 setBooks(data.BookList || []);

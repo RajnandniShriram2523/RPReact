@@ -55,6 +55,7 @@ font-size: 30px;
   border: none;
   font-size: 18px;
   /* cursor: pointer; */
+  text-decoration: none;
 }
 
 .link-button:hover {

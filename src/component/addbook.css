@@ -1,89 +1,117 @@
-.main3{
-    width:100vw;
+/* Container */
+.main3 {
+width:100vw;
     height:100vh;
-     /* background-color: rgb(215, 215, 212);  */
+    /* background-color: rgb(207, 207, 15); */
      background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
-  background-size: cover;
-  background-repeat: no-repeat; 
+    background-size:cover;
+    background-repeat: no-repeat; 
     display:flex;
-    gap:20%;
-   
+    /* align-items: center; */
+    position:fixed;
+    gap:3%;
+    /* justify-content: center;  */}
 
-}
-h2{
-      font-family: 'Pacifico', cursive;
-}
-
-
-.form2{
-    width:45%;
-    height:90%;
-    margin-top:50px;
-    /* background-color:white; */
-      display:flex;  
-     text-align: center;
-    align-items: center;
-    /* text-align: center; */
-   /* justify-content: center; */
-    flex-direction: column; 
-    color:white;
-    
-
-}
-
-input[type='text']{
-    width:90%;
-    height:50px;
-    border-radius: 10px;
-    text-decoration: none;
-} 
-.buttons{
-       width:90%;
-   height:40px;
-   align-items: center;
- /* background-color: rgb(116, 163, 163); */
-   color:black;
-    display:flex;  
-    justify-content: space-between;
-    color:red;
-}
-.bttn
-{
-   width:40%;
-   height:40px;
- background-color: rgb(23, 115, 143);
-   color:black;
-   border-radius:10px;
-   
-   
-}
-.btnn
-{
-   width:40%;
-   height:40px;
- background-color:red;
-   color:black;
-   border-radius:10px;
-   
 
    
+/* Form Wrapper */
+.form2 {
+  flex: 1;
+  /* padding: 40px; */
+  max-width: 600px;
+  margin: auto;
+  /* background: white; */
+  border-radius: 12px;
+height:100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
-.btn:hover{
-    border: 2px solid white;
-   color: white;
-       background-color: rgb(255, 0, 153);
+
+.form2 h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  color: #f0eaea;
 }
+
+/* Input Fields */
+.form2 input,
+.form2 select {
+  width: 100%;
+  padding: 8px 14px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  height:7%;
+  display: flex;
+  gap:20%;
+  flex-direction: column;
+  transition: border-color 0.3s;
+}
+
+/* .form2 input:focus,
+.form2 select:focus {
+  border-color: #007bff;
+  outline: none;
+} */
+
+/* Buttons */
+.buttons1 {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 100%; /* makes it full width of the form */
+  /* background-color: green; optional, for debug or styling */
+  /* padding: 0 10px; optional spacing inside */
+  gap: 10px; /*spacing between buttons */
+}
+
+
+.bttn1,
+.btnn1 {
+  flex: 1;
+  padding: 10px;
+  font-size: 15px;
+  /* margin-right: 10px; */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  width:20%;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.bttn:hover,
+.btnn:hover {
+  background-color: #0056b3;
+}
+
+.btnn {
+  background-color: #6c757d;
+}
+
+.btnn:hover {
+  background-color: #495057;
+}
+
+/* Message Box */
 .message {
-    margin-top: 25px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
+  /* margin-top: 20px; */
+  /* padding: 10px; */
+  /* border-radius: 8px; */
+  /* font-size: 14px; */
+  text-align: center;
 }
 
-.success {
-    color: lightgreen;
+.message.success {
+  /* background-color: #d4edda; */
+  color: #155724;
+  /* border: 1px solid #c3e6cb; */
 }
 
-.error {
-    color: red;
+.message.error {
+  /* background-color: #f8d7da; */
+  color: #721c24;
+  /* border: 1px solid #f5c6cb; */
 }

@@ -22,6 +22,10 @@ class AddData {
    saveviewStudent(page = 1, limit = 10) {
     return axios.get(`http://localhost:4000/viewstudent?page=${page}&limit=${limit}`);
   }
+savedeletecategory(id) {
+  return axios.get(`http://localhost:4000/deletecategory/${id}`);
+}
+
 }
 export default new AddData();
 

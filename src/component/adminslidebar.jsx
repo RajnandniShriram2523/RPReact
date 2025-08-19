@@ -17,9 +17,10 @@ const AdminSidebar = () => {
           <li><Link className="sidebar-button" to="/addstudent">Add Student</Link></li>
           <li><Link className="sidebar-button" to="/viewstudent">View Student</Link></li>
 
-          {/* <li><Link className="sidebar-button" to="/about">About Us</Link></li>
-          <li><Link className="sidebar-button" to="/contact">Contact Us</Link></li> */}
-          <li><Link className="sidebar-button" to="/logout">Log Out</Link></li>
+          <li><Link className="sidebar-button" to="/about">View Issued Book</Link></li>
+          <li><Link className="sidebar-button" to="/contact">View Returned Book</Link></li>
+          
+          <li><Link className="sidebar-button" to="/">Log Out</Link></li>
         </ul>
       </aside>
     </div>

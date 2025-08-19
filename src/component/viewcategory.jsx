@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import viewCategorys from "../services/dataservice";
 import "./viewcategory.css";
 import AdminSidebar from "./adminslidebar";
+import { NavLink } from 'react-router-dom';
 
 export default function ViewCategory() {
     const [categories, setCategories] = useState([]);
@@ -54,27 +55,26 @@ export default function ViewCategory() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {categories.length > 0 ? (
-                                    categories.map((cat, index) => (
-                                        <tr key={cat.category_id}>
-                                            <td>{(currentPage - 1) * 6 + index + 1}</td> {/* Continuous serial number */}
-                                            <td>{cat.category_name}</td>
-                                            <td>
-                                                <button className="link-button" onClick={() => handleDelete(cat.category_id)}>🗑️</button>
-                                            </td>
-                                            <td>
-                                                <button className="link-button" onClick={() => handleUpdate(cat.category_id)}>✍️</button>
-                                            </td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan="4" className="text-center">No categories found</td>
-                                    </tr>
-                                )}
+  {categories.length > 0 ? (
+    categories.map((cat, index) => (
+      <tr key={cat.category_id}>
+        <td>{(currentPage - 1) * 6 + index + 1}</td>
+        <td>{cat.category_name}</td>
+        <td>
+          <NavLink to={`/deletecategory/${cat.category_id}`} className="link-button">🗑️</NavLink>
+        </td>
+        <td>
+          <NavLink to={`/updatecategory/${cat.category_id}`} className="link-button">update</NavLink>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="4" className="text-center">No categories found</td>
+    </tr>
+  )}
+</tbody>
 
-
-                            </tbody>
                         </table>
 
                         <div className="pagination-boxed">

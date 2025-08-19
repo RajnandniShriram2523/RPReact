@@ -14,6 +14,8 @@ import AddStudent from "../src/component/addstudent";
 import ViewCategory from "./component/viewcategory";
 import ViewBook from "./component/viewbook";
 import Viewstudent from "./component/viewstudent";
+import Viewissuedbook from "./component/viewissuedbook";
+import Deletecategorybyid from "./component/deletecategorybyid";
 
 class App extends React.Component{
   render() {
@@ -56,12 +58,16 @@ class App extends React.Component{
           <Route path="/adminsildebar" element={<AdminSidebar />} />
           <Route path="/addcategory" element={<AddCategory />} />
            <Route path="/viewcategory" element={<ViewCategory />} />
+         <Route path="/deletecategory/:id" element={<Deletecategorybyid />} />
+
           <Route path="/addbook" element={<Addbook />} />
           <Route path="/viewbook" element={<ViewBook />} />
           <Route path="/addstudent" element={<AddStudent />} />
           <Route path="/viewstudent" element={<Viewstudent />}/>
-
-        </Routes>
+          <Route path="/viewissuedbook" element={<Viewissuedbook/>}/> 
+          
+          
+          </Routes>
       </BrowserRouter>
     );
   }
