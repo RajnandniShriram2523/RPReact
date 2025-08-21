@@ -14,21 +14,29 @@ import AddStudent from "../src/component/addstudent";
 import ViewCategory from "./component/viewcategory";
 import ViewBook from "./component/viewbook";
 import Viewstudent from "./component/viewstudent";
+import AddIssuedBook from "./component/AddIssuedBook";
 import Viewissuedbook from "./component/viewissuedbook";
-import Deletecategorybyid from "./component/deletecategorybyid";
+import ViewOnlyIssuedBooks from "./component/ViewOnlyIssuedBook";
+import ViewOnlyReturnedBook from "./component/ViewOnlyReturnedBook";
+import ViewStudentBookData from "./component/ViewStudentBookData";
+import ViewStdBookDatabyEmail from "./component/ViewStdBookDatabyEmail";
 
-class App extends React.Component{
+
+
+
+
+class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-      
+
         <nav className="navbar navbar-expand-lg ">
           <NavLink className="navbar-brand" to="/"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/c46c7f62556223.5a945f059c90e.png" /></NavLink>
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
                 <NavLink className="nav-link" to="/"></NavLink>
-              </li> 
+              </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/home">Home</NavLink>
               </li>
@@ -41,33 +49,34 @@ class App extends React.Component{
               <li className="nav-item">
                 <NavLink className="nav-link" to="services"></NavLink>
               </li>
-           </ul>
+            </ul>
           </div>
           <div>
-            <Link to="/login" className=" btn-primary">Login</Link> 
+            <Link to="/login" className=" btn-primary">Login</Link>
             {/* <a href="/login" className="login_btn">Login</a> */}
-           </div>
+          </div>
         </nav>
 
         <Routes>
-          <Route path="/" element={<Slidelinging />}/>
+          <Route path="/" element={<Slidelinging />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/adminsildebar" element={<AdminSidebar />} />
           <Route path="/addcategory" element={<AddCategory />} />
-           <Route path="/viewcategory" element={<ViewCategory />} />
-         <Route path="/deletecategory/:id" element={<Deletecategorybyid />} />
-
+          <Route path="/viewcategory" element={<ViewCategory />} />
           <Route path="/addbook" element={<Addbook />} />
           <Route path="/viewbook" element={<ViewBook />} />
           <Route path="/addstudent" element={<AddStudent />} />
-          <Route path="/viewstudent" element={<Viewstudent />}/>
-          <Route path="/viewissuedbook" element={<Viewissuedbook/>}/> 
-          
-          
-          </Routes>
+          <Route path="/viewstudent" element={<Viewstudent />} />
+<Route path="/viewonlyissuedbook" element={<ViewOnlyIssuedBooks />}/>
+<Route path="/viewonlyreturnedbook" element={<ViewOnlyReturnedBook />}/>
+           <Route path="/viewstudentbookdatabyid" element={<ViewStudentBookData />}/>
+          <Route path="/viewstdbookdatabyuseremail" element={<ViewStdBookDatabyEmail />}/>
+          <Route path="/AddIssuedBook" element={<AddIssuedBook />}/>
+       <Route path="/viewissuedbook" element={<Viewissuedbook/>}/>
+        </Routes>
       </BrowserRouter>
     );
   }
@@ -76,4 +85,4 @@ class App extends React.Component{
 
 
 
-export default App;
+export default App;

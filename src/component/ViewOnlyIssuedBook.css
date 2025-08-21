@@ -30,20 +30,50 @@
   padding-bottom: 10px;
 }
 
-.issuedbook-loading {
-  text-align: center;
-  font-size: 18px;
-  color: #666;
-  margin-top: 20px;
+/* ✅ Flex container for search and dropdown */
+.issuedbook-search {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 20px; /* 👈 space between search and dropdown */
 }
 
-.issuedbook-nodata {
-  text-align: center;
-  padding: 20px;
-  font-style: italic;
-  color: #888;
+/* 🔍 Search input */
+/* .issuedbook-search input[type="text"] {
+  flex: 1;
+  max-width: 500px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+} */
+
+.issuedbook-search input[type="text"]:focus {
+  outline: none;
+  border-color: #ff6600;
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
 }
 
+/* ⬇️ Dropdown */
+.issuedbook-dropdown {
+  width: 200px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.issuedbook-dropdown:focus {
+  outline: none;
+  border-color: #ff6600;
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
+}
+
+/* 📄 Table styles */
 .issuedbook-table {
   width: 100%;
   border-collapse: collapse;
@@ -70,6 +100,16 @@
   background-color: #f1f1f1;
 }
 
+.issuedbook-loading,
+.issuedbook-nodata {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* ⬅️➡️ Pagination */
 .pagination-controls {
   margin-top: 20px;
   text-align: center;
@@ -95,47 +135,4 @@
 
 .pagination-controls button:hover:not(:disabled) {
   background-color: #e55b00;
-}
-
-/* Search and dropdown container */
-.issuedbook-search {
-  display: flex;
-  align-items: center;
-  margin: 15px 0 15px 0;
-  gap: 165px; /* gap between input and dropdown */
-}
-
-.issuedbook-search input[type="text"] {
-  flex: 1;
-  width: 60%;
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  transition: border-color 0.3s ease;
-  /* background-color: red; */
-  
-}
-
-.issuedbook-search input[type="text"]:focus {
-  outline: none;
-  border-color: #ff6600;
-  box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
-}
-
-.issuedbook-dropdown {
-  width: 150px;
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-  height: 50px;
-}
-
-.issuedbook-dropdown:focus {
-  outline: none;
-  border-color: #ff6600;
-  box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
 }

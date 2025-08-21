@@ -4,127 +4,196 @@ import "./viewbook.css";
 import AdminSidebar from "./adminslidebar";
 
 export default function ViewBook() {
-    const [books, setBooks] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
-    const [loading, setLoading] = useState(false);
+  const [books, setBooks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // 🔍 added
 
-    // Fetch books for a given page
-    const fetchBooks = (page) => {
-        setLoading(true);
-        viewBook.saveviewBook(page, 6) // You are requesting 5 books per page
-            .then((res) => {
-                const data = res.data;
-                setBooks(data.BookList || []);
-                setCurrentPage(data.currentPage || page);
-                setTotalPages(data.totalPages || 1); // Use totalPages from backend
-            })
-            .catch((err) => {
-                console.error("Failed to fetch books:", err);
-                setBooks([]);
-            })
-            .finally(() => setLoading(false));
-    };
+  const fetchBooks = async (page, search = "") => {
+    setLoading(true);
+    try {
+      let res;
 
-    // Fetch books whenever currentPage changes
-    useEffect(() => {
-        fetchBooks(currentPage);
-    }, [currentPage]);
+      if (search.trim()) {
+        // if searching, call search API (you must implement this on backend)
+        res = await viewBook.searchBookByName(search, page, 1);
+      } else {
+        res = await viewBook.saveviewBook(page, 1);
+      }
 
-    // Pagination Handlers
-    const handlePrev = () => {
-        if (currentPage > 1) {
-            setCurrentPage(prev => prev - 1);
-        }
-    };
+      const data = res.data;
+      setBooks(data.BookList || []);
+      setCurrentPage(data.currentPage || page);
+      setTotalPages(data.totalPages || 1);
+    } catch (err) {
+      console.error("Failed to fetch books:", err);
+      setBooks([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const handleNext = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(prev => prev + 1);
-        }
-    };
+  useEffect(() => {
+    fetchBooks(currentPage, searchTerm);
+  }, [currentPage, searchTerm]);
 
-    const handleDelete = (id) => {
-        console.log("Delete book with ID:", id);
-    };
+  const showMessage = (text, type = "success") => {
+    setMessage(text);
+    setMessageType(type);
+    setTimeout(() => {
+      setMessage("");
+      setMessageType("");
+    }, 3000);
+  };
 
-    const handleUpdate = (id) => {
-        console.log("Update book with ID:", id);
-    };
+  const handleDelete = async (id) => {
+    try {
+      const res = await viewBook.savedeletebook(id, currentPage);
+      if (res.data.status === "delete") {
+        showMessage("✅ Book deleted successfully", "success");
+        fetchBooks(currentPage, searchTerm);
+      } else {
+        showMessage("❌ Failed to delete book", "error");
+      }
+    } catch (error) {
+      console.error("Error deleting book:", error);
+      showMessage("⚠️ Something went wrong", "error");
+    }
+  };
 
-    return (
-        <div className="main12">
-            <AdminSidebar />
-            <div className="book-container">
-                <h3 className="book-title">Book List</h3>
+  const handleUpdate = (id) => {
+    console.log("Update book with ID:", id);
+  };
 
-                {loading ? (
-                    <p className="text-center">Loading books...</p>
-                ) : (
-                    <>
-                        <table className="book-table">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Book Name</th>
-                                    <th>Author</th>
-                                    <th>Price</th>
-                                    <th>Published</th>
-                                    <th>ISBN Code</th>
-                                    <th>Category Name</th>
-                                    <th>Status</th>
-                                    <th>Delete</th>
-                                    <th>Update</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {books.length > 0 ? (
-                                    books.map((book, index) => (
-                                        <tr key={book.book_id}>
-                                            <td>{(currentPage - 1) * 5 + index + 1}</td>
-                                            <td>{book.book_title}</td>
-                                            <td>{book.book_author}</td>
-                                            <td>{book.book_price}</td>
-                                            <td>{book.book_published_date?.substring(0, 10)}</td>
-                                            <td>{book.isbn_code}</td>
-                                            <td>{book.category_name || "Unknown"}</td>
-                                            <td>{book.status || "N/A"}</td>
-                                              <td>
-                                                <button className="link-button" onClick={() => handleDelete(cat.category_id)}>🗑️</button>
-                                            </td>
-                                            <td>
-                                                <button className="link-button" onClick={() => handleUpdate(cat.category_id)}>✍️</button>
-                                            </td>
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan="10" className="text-center">No books found</td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(prev => prev - 1);
+  };
 
-                        {/* Pagination Controls */}
-                        <div className="pagination-boxed">
-                            <button onClick={handlePrev} disabled={currentPage === 1}>Prev</button>
-                            {[...Array(totalPages)].map((_, index) => {
-                                const page = index + 1;
-                                return (
-                                    <button
-                                        key={page}
-                                        onClick={() => setCurrentPage(page)}
-                                        className={page === currentPage ? "active" : ""}
-                                    >
-                                        {page}
-                                    </button>
-                                );
-                            })}
-                            <button onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
-                        </div>
-                    </>
-                )}
-            </div>
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
+  };
+
+  return (
+    <div className="main12">
+      <AdminSidebar />
+      <div className="book-container">
+        <h3 className="book-title">Book List</h3>
+
+        {/* 🔍 Search Bar */}
+        <div className="search-bar1">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => {
+              setCurrentPage(1); // reset to page 1 on search
+              setSearchTerm(e.target.value);
+            }}
+            placeholder="Search book by title..."
+            className="search-input"
+          />
+          {searchTerm && (
+            <button
+              className="clear-search"
+              onClick={() => setSearchTerm("")}
+              aria-label="Clear search"
+            >
+              ×
+            </button>
+          )}
         </div>
-    );
+
+        {loading ? (
+          <p className="text-center">Loading books...</p>
+        ) : (
+          <>
+            <table className="book-table">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Book Name</th>
+                  <th>Author</th>
+                  <th>Price</th>
+                  <th>Published</th>
+                  <th>ISBN Code</th>
+                  <th>Category Name</th>
+                  <th>Status</th>
+                  <th>Delete</th>
+                  <th>Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                {books.length > 0 ? (
+                  books.map((book, index) => (
+                    <tr key={book.book_id}>
+                      <td>{(currentPage - 1) * 6 + index + 1}</td>
+                      <td>{book.book_title}</td>
+                      <td>{book.book_author}</td>
+                      <td>{book.book_price}</td>
+                      <td>{book.book_published_date?.substring(0, 10)}</td>
+                      <td>{book.isbn_code}</td>
+                      <td>{book.category_name || "Unknown"}</td>
+                      <td>{book.status || "N/A"}</td>
+                      <td>
+                        <button
+                          className="link-button delete-button"
+                          onClick={() => handleDelete(book.book_id)}
+                        >
+                          🗑️
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="link-button update-button"
+                          onClick={() => handleUpdate(book.book_id)}
+                        >
+                          ✍️
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="10" className="text-center">
+                      No books found
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+
+            {/* Pagination */}
+            <div className="pagination-boxed">
+              <button onClick={handlePrev} disabled={currentPage === 1}>
+                Prev
+              </button>
+              {[...Array(totalPages)].map((_, index) => {
+                const page = index + 1;
+                return (
+                  <button
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={page === currentPage ? "active" : ""}
+                  >
+                    {page}
+                  </button>
+                );
+              })}
+              <button onClick={handleNext} disabled={currentPage === totalPages}>
+                Next
+              </button>
+            </div>
+          </>
+        )}
+
+        {message && (
+          <div className={`custom-message-bottom ${messageType}`}>
+            {message}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

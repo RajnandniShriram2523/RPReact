@@ -110,3 +110,61 @@
     padding: 20px 0;
     font-size: 16px;
 }
+
+.custom-message1 {
+  margin-top: 12px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-align: center;
+  max-width: 300px;       /* optional: controls message box width */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.custom-message1.success {
+  /* background-color: #d4edda; */
+  color: #155724;
+}
+
+.custom-message1.error {
+  /* background-color: #f8d7da; */
+  color: #f5071f;
+}
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  margin-bottom: 16px;
+}
+
+/* Search input */
+.search-input {
+  width: 100%;
+  padding: 8px 36px 8px 12px; /* extra right padding for clear button */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+}
+
+/* Clear button inside input */
+.clear-btn {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  color: #f44336;
+}
+

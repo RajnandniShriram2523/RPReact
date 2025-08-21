@@ -1,45 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import viewissuedbook from "../services/dataservice";
-import "./viewissuedbook.css";
+import viewonlyissuedbook from "../services/dataservice";
+import "./ViewOnlyIssuedBook.css";
 import AdminSidebar from "./adminslidebar";
 
-export default function Viewissuedbook() {
+export default function ViewOnlyIssuedBooks() {
   const [issuedBooks, setIssuedBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit] = useState(5);
+  const [limit] = useState(5); // I increased limit to 5 for consistency
   const [totalPages, setTotalPages] = useState(1);
 
   const navigate = useNavigate();
 
-  const fetchIssuedBooks = (page, limit) => {
+  useEffect(() => {
+    fetchOnlyIssuedBooks(currentPage, limit);
+  }, [currentPage, limit]);
+
+  const fetchOnlyIssuedBooks = (page, limit) => {
     setLoading(true);
-    viewissuedbook
-      .getIssuedBooks(page, limit)
+    viewonlyissuedbook
+      .getOnlyIssuedBooks(page, limit)
       .then((res) => {
         const data = res.data;
         setIssuedBooks(data.BookList || []);
         setTotalPages(data.totalPages || 1);
       })
       .catch((err) => {
-        console.error("Error fetching issued books:", err);
+        console.error("Error fetching only issued books:", err);
         setIssuedBooks([]);
       })
       .finally(() => setLoading(false));
   };
 
-  useEffect(() => {
-    fetchIssuedBooks(currentPage, limit);
-  }, [currentPage]);
-
   const handleFilterChange = (e) => {
     const value = e.target.value;
-
-    if (value === "issued") {
-      navigate("/viewonlyissuedbook");
+    if (value === "") {
+      navigate("/viewissuedbook"); // go back to full issued book list
+    } else if (value === "issued") {
+      navigate("/viewonlyissuedbook"); // stay here
     } else if (value === "returned") {
-      navigate("/viewonlyreturnedbook");
+      navigate("/viewonlyreturnedbook"); // go to returned books page
     }
   };
 
@@ -56,12 +57,12 @@ export default function Viewissuedbook() {
       <AdminSidebar />
       <div className="issuedbook-wrapper">
         <div className="issuedbook-container">
-          <h3 className="issuedbook-title">Book List</h3>
+          <h3 className="issuedbook-title">Issued Book List</h3>
 
           {/* Search and Filter */}
           <div className="issuedbook-search">
             <input type="text" placeholder="Search issued books..." />
-            <select className="issuedbook-dropdown" onChange={handleFilterChange}>
+            <select className="issuedbook-dropdown" onChange={handleFilterChange} value="issued">
               <option value="">Filter by status</option>
               <option value="issued">Issued</option>
               <option value="returned">Returned</option>
@@ -107,7 +108,7 @@ export default function Viewissuedbook() {
                 </tbody>
               </table>
 
-              <div className="pagination-controls" style={{ textAlign: "center", marginTop: "20px" }}>
+              <div className="pagination-controls">
                 <button onClick={handlePrev} disabled={currentPage === 1}>
                   Prev
                 </button>

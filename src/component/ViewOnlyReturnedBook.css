@@ -1,0 +1,80 @@
+.returned-books {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.returned-books-content {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.returned-books-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.returned-books-table-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.returned-books-loading {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+}
+
+.returned-books-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.returned-books-table th,
+.returned-books-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.returned-books-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.returned-books-empty {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  padding: 20px;
+}
+
+.returned-books-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.returned-books-pagination button {
+  padding: 6px 12px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.returned-books-pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.returned-books-pagination span {
+  font-weight: bold;
+}

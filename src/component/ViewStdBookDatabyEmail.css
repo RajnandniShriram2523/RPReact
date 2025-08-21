@@ -1,0 +1,156 @@
+/* Container styles */
+.main-issued {
+  display: flex;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.issuedbook-wrapper {
+  flex: 1;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* .issuedbook-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+} */
+
+/* Title */
+.issuedbook-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #333;
+}
+
+/* Search Form */
+.search-student-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+/* .search-input {
+  padding: 10px;
+  font-size: 16px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+} */
+
+.search-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+/* Loading message */
+.issuedbook-loading {
+  text-align: center;
+  font-size: 16px;
+  color: #777;
+}
+
+/* Table styles */
+.issuedbook-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+.issuedbook-table th,
+.issuedbook-table td {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* .issuedbook-table th {
+  background-color: #007bff;
+  color: #fff;
+} */
+
+.issuedbook-table td {
+  background-color: #f9f9f9;
+}
+
+/* No data row */
+.issuedbook-nodata {
+  text-align: center;
+  padding: 15px;
+  font-size: 16px;
+  color: #999;
+}
+
+/* Pagination controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.pagination-controls button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls span {
+  font-weight: bold;
+  color: #333;
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 35px 10px 10px; /* padding-right for clear button */
+  font-size: 16px;
+}
+
+.clear-input-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  color: #666;
+}
+
+.clear-input-btn:hover {
+  color: #000;
+}

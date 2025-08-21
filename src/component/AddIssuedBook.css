@@ -1,0 +1,198 @@
+/* Wrapper for sidebar and form */
+.issue-book-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
+  background-size: cover;
+  background-repeat: no-repeat; */
+  width: 100%;
+}
+
+/* Main form box */
+.issue-book-form {
+  flex: 1;
+  margin: 30px auto;
+  padding: 40px;
+  max-width: 700px;
+  background-color: #fffffff1;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(4px);
+}
+
+/* Form title */
+.issue-book-form h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* Labels */
+.issue-book-form label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Inputs and selects */
+.issue-book-form input[type="date"],
+.issue-book-form select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #fdfdfd;
+  transition: border 0.3s ease;
+}
+
+.issue-book-form input:focus,
+.issue-book-form select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Book and Student info boxes */
+.book-info,
+.student-info {
+  background-color: #f1f9ff;
+  padding: 12px 16px;
+  margin-top: 10px;
+  border-left: 4px solid #2980b9;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+/* Buttons wrapper */
+.buttons {
+  margin-top: 25px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Issue button */
+.bttn {
+  padding: 12px 24px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.bttn:hover {
+  background-color: #219150;
+}
+
+/* Clear button */
+.btnn {
+  padding: 12px 24px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btnn:hover {
+  background-color: #c0392b;
+}
+
+/* Optional refresh button styling */
+.refresh-btn {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.refresh-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Message box */
+.message {
+  margin-top: 20px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 5px solid #28a745;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 5px solid #dc3545;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .issue-book-form {
+    margin: 20px;
+    padding: 30px;
+  }
+
+  .bttn,
+  .btnn,
+  .refresh-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Wrapper around select dropdowns */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper select {
+  width: 100%;
+  padding: 12px 14px 12px 42px; /* space for icon */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #fdfdfd;
+  background-repeat: no-repeat;
+  background-position: 12px center;
+  background-size: 20px 20px;
+  transition: border 0.3s ease;
+}
+
+.select-wrapper select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Book icon */
+.book-select select {
+  background-image: url("https://cdn-icons-png.freepik.com/512/3330/3330317.png");
+}
+
+/* Student icon */
+.student-select select {
+  background-image: url("https://www.shutterstock.com/image-vector/student-icon-260nw-355542905.jpg");
+}
