@@ -1,0 +1,80 @@
+/* Sidebar container */
+.user-panel {
+  width: 250px;
+  min-height: 100vh;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  box-sizing: border-box;
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+/* User info section */
+.user-info {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Circular user logo */
+.user-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ecf0f1;
+  margin-bottom: 10px;
+}
+
+/* Sidebar heading */
+.user-info h2 {
+  font-size: 22px;
+  margin: 0;
+  color: #ecf0f1;
+}
+
+/* Navigation list */
+.data-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Sidebar buttons/links */
+.sidebar-btn {
+  display: block;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  color: white;
+  background-color: #34495e;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+.sidebar-btn:hover {
+  background-color: #1abc9c;
+  color: #fff;
+}
+
+/* Optional: active/focus effect */
+.sidebar-btn:active {
+  background-color: #16a085;
+}
+
+/* Scrollbar styling for overflow (optional) */
+.user-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.user-panel::-webkit-scrollbar-thumb {
+  background-color: #7f8c8d;
+  border-radius: 3px;
+}
+
+.user-panel::-webkit-scrollbar-track {
+  background-color: #2c3e50;
+}

@@ -1,0 +1,109 @@
+/* Main container */
+.uvb-main {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fffaf3; /* light cream */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Content area */
+.uvb-content {
+  flex: 1;
+  padding: 2rem;
+  margin: 2rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(255, 165, 0, 0.1);
+}
+
+/* Title */
+.uvb-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #e65100; /* dark orange */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table */
+.uvb-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+/* Table headers */
+.uvb-table th {
+  background-color: #ffe0b2; /* light orange */
+  color: #e65100; /* dark orange */
+  font-weight: 700;
+  padding: 12px 15px;
+  border: 1px solid #f0e0d0;
+  text-align: left;
+}
+
+/* Table data cells */
+.uvb-table td {
+  padding: 12px 15px;
+  border: 1px solid #f0e0d0;
+  color: #444;
+}
+
+/* Hover on rows */
+.uvb-table tbody tr:hover {
+  background-color: #fff3e0; /* very light orange */
+}
+
+/* Centered text helper */
+.uvb-center-text {
+  text-align: center;
+  color: #555;
+}
+
+/* Pagination container */
+.uvb-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Pagination buttons */
+.uvb-pagination button {
+  background-color: #ff9800; /* orange */
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for pagination buttons */
+.uvb-pagination button:hover:not(:disabled) {
+  background-color: #fb8c00; /* darker orange */
+}
+
+/* Disabled pagination buttons */
+.uvb-pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  color: #777;
+}
+
+/* Active pagination button */
+.uvb-active {
+  background-color: #e65100; /* dark orange */
+  font-weight: 700;
+}
+
+.uvb-search-bar {
+    margin-bottom: 15px;
+}
+
+.uvb-search-bar input {
+    width: 300px;
+    padding: 8px;
+    font-size: 14px;
+}

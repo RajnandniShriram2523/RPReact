@@ -1,54 +1,225 @@
-.login-container {
-  max-width:400px;
+/* ----------------------------------------------
+   🧩 Login Wrapper: Flex layout (Form + Image)
+------------------------------------------------ */
+.login-wrapper {
+  display: flex;
+  max-width: 950px;
   margin: 50px auto;
-  text-align: center;
-  position: relative;
-  z-index: 3;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* Left (Form section) */
+.login-left {
+  flex: 1;
+  padding: 40px 35px;
+  background: #f0f4ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Right (Image section) */
+.login-right {
+  flex: 1;
+  background: linear-gradient(135deg, #0bb6c9, #007a9e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-right img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* ----------------------------------------------
+   🧩 Login Form Container
+------------------------------------------------ */
+.login-container {
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: left;
+  animation: fadeSlideIn 1s ease forwards;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ----------------------------------------------
+   🧩 Logo Styling
+------------------------------------------------ */
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
 .logo img {
   width: 120px;
-  margin-bottom: 30px;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(11, 182, 201, 0.6);
 }
 
+/* ----------------------------------------------
+   🧩 Login Box
+------------------------------------------------ */
 .login-box {
-  background-color: #d8d8f9;
-  padding: 30px;
-  border-radius: 8px;
+  background: linear-gradient(to bottom right, #eaf6ff, #dbe4ff);
+  border: 2px solid #0bb6c9;
+  padding: 35px 30px;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(11, 182, 201, 0.1);
+  transform: translateZ(0);
+  transition: all 0.3s ease;
+
+  /* Center content inside the box */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* ----------------------------------------------
+   🧩 Labels & Inputs
+------------------------------------------------ */
 .login-box label {
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 14px;
+  color: #1a0a3f;
 }
 
-/* .btn-primary {
-  background-color: white;
-  /* border: 2px solid black; */
-  /* padding: 10px 40px;
-  font-weight: bold;
-  width: 200px;
-  height: 50px;
-  background-color: rgb(7, 180, 45);
-  color: white;
-} */
+.form-control {
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 15px;
+  border: 1px solid #aaa;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
 
-/* .btn-primary:hover {
-  background-color: #225ad3;
-} */ */
+.form-control:focus {
+  border-color: #0bb6c9;
+  box-shadow: 0 0 10px rgba(11, 182, 201, 0.5);
+  outline: none;
+  background-color: #faffff;
+}
 
+/* ----------------------------------------------
+   🧩 Login Button
+------------------------------------------------ */
 .btn-login {
-  background-color: white;
-  border: 2px solid black;
-  padding: 10px 40px;
+  background-color: #e1880c;
+  border: 2px solid transparent;
+  padding: 12px 35px;
   font-weight: bold;
-  width: 200px;
+  width: 100%;
+  max-width: 250px;
   height: 50px;
   text-decoration: none;
-  border-radius: 10px;
-  background-color: rgb(52, 212, 52);
+  border-radius: 12px;
   color: white;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(52, 212, 52, 0.4);
 }
 
 .btn-login:hover {
+  background-color: #1412a6;
   border: 2px solid white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(211, 49, 8, 0.6);
+}
+
+/* ----------------------------------------------
+   🧩 Responsive Design
+------------------------------------------------ */
+@media (max-width: 768px) {
+  .login-wrapper {
+    flex-direction: column;
+  }
+
+  .login-left,
+  .login-right {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .login-right {
+    order: -1; /* Show image on top */
+  }
+}
+
+@media (max-width: 480px) {
+  .login-box {
+    padding: 25px 20px;
+  }
+
+  .btn-login {
+    font-size: 15px;
+    padding: 20px 60px;
+  }
+}
+
+/* ----------------------------------------------
+   🧩 Navbar Styling
+------------------------------------------------ */
+.navbar-expand-lg {
+  background: linear-gradient(90deg, #0bb6c9, #8e44ad, #f06305);
+  background-size: 300% 100%;
+  animation: gradientShift 6s ease infinite;
+  padding: 14px 30px;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Optional gradient shift animation
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+*/
+.login-heading {
+  font-size: 28px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+
+  /* 🎨 Gradient Text */
+  /* background: linear-gradient(90deg, #0bb6c9, #8e44ad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+
+  /* 🌟 Glow */
+  text-shadow: 0 0 5px rgba(11, 182, 201, 0.4), 0 0 15px rgba(142, 68, 173, 0.5);
+
+  /* 🎬 Animation */
+  animation: fadeSlideIn 1s ease forwards, pulseText 3s infinite ease-in-out;
+  opacity: 0;
+  transform: translateY(30px);
 }

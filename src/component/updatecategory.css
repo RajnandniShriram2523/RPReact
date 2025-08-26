@@ -1,0 +1,96 @@
+/* updatecategory.css */
+
+/* Main container */
+.main15 {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  position: fixed;
+  /* background-color: #357abd; */
+  gap: 8%;
+}
+
+.update-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: #f9fafb;
+  font-family: Arial, sans-serif;
+}
+
+.update-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+.update-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.update-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+.update-message {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.update-message.success {
+  color: green;
+}
+
+.update-message.error {
+  color: red;
+}
+
+.update-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.update-input {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+}
+
+.update-input:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.update-button {
+  background: #2563eb;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 100%;
+  transition: 0.3s;
+}
+
+.update-button:hover {
+  background: #1e40af;
+}

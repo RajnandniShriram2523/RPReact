@@ -13,6 +13,8 @@ class AddData {
     let promise = axios.post("http://localhost:4000/adduser", addstudent);
     return promise;
   }
+
+
   saveviewCategory(page = 1, limit = 10) {
     return axios.get(`http://localhost:4000/viewcategory?page=${page}&limit=${limit}`);
   }
@@ -23,6 +25,9 @@ class AddData {
     return axios.get(`http://localhost:4000/viewstudent?page=${page}&limit=${limit}`);
   }
 
+
+
+
   savedeletecategory(id) {
     return axios.get(`http://localhost:4000/deletecategory/${id}`);
   }
@@ -32,12 +37,65 @@ class AddData {
   savedeletestudent(id, page = 1) {
     return axios.get(`http://localhost:4000/deletestudent/${id}?page=${page}`);
   }
+getCategoryById(id) {
+  return axios.get(`http://localhost:4000/updatecategory`, { params: { category_id: id } });
+}
+
+savefinalUpdateCategory = (category_id, category_name, page = 1, limit = 5) => {
+  return axios.post(`http://localhost:4000/finalupdatecategory?page=${page}&limit=${limit}`, {
+    category_id,
+    category_name
+  })
+};
+
+getCategoryById(id) {
+    return axios.get(`http://localhost:4000/category/${id}`);
+  }
+
+  // ✅ Update category by ID
+  updateCategory(id, data) {
+    return axios.put(`http://localhost:4000/category/${id}`, data);
+  }
+
+getBookById (id) {
+  return axios.get(`http://localhost:4000/book/${id}`)
+}
+  // Update book
+  updateBook (id, data){
+    return axios.put(`http://localhost:4000/book/${id}`, data)
+  }
+
+  // Get all categories
+  getCategories () {
+   return axios.get(`http://localhost:4000/categories`)
+  }
+
+  // View all books with pagination
+  getBooks (page = 1, limit = 5) {
+    return axios.get(`http://localhost:4000/books?page=${page}&limit=${limit}`)
+};
+
+
+
+
   saveSearchCategory(category_name, page = 1, limit = 10) {
     return axios.get(`http://localhost:4000/categories/search`, { params: { category_name, page, limit } });
   }
-  searchBookByName(book_title, page = 1, limit = 6) {
-    return axios.get(`http://localhost:4000/searchbook`, { params: { book_title, page, limit }, });
+
+
+searchBookByName(search, page, limit) {
+    return axios.get(`http://localhost:4000/searchbook`, {
+      params: { book_title: search, page, limit }
+    });
+// searchBookByName(book_title, page=1, limit=10) {
+//   return axios.get(`http://localhost:4000/searchbook`, {params: { book_title, page, limit }   // 👈 change title → book_title
+//   });
+
+
   }
+
+
+
   searchStudent = (search = "", page = 1, limit = 5) => {
     return axios.get(`http://localhost:4000/searchstudent`, { params: { search, page, limit }, });
   };
@@ -70,7 +128,9 @@ getstdBooksDataByEmail(student_email,page = 1, limit = 2) {
 }
 
 
-
+viewUserAllBooks(page = 1, limit = 6) {
+  return axios.get(`http://localhost:4000/userviewbook?page=${page}&limit=${limit}&status=returned`);
+}
 }
 export default new AddData();
 

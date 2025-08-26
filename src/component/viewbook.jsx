@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import viewBook from "../services/dataservice";
 import "./viewbook.css";
+import { NavLink } from "react-router-dom";
 import AdminSidebar from "./adminslidebar";
 
 export default function ViewBook() {
@@ -10,24 +11,26 @@ export default function ViewBook() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
-  const [searchTerm, setSearchTerm] = useState(""); // 🔍 added
+  const [searchTerm, setSearchTerm] = useState("");
 
+  // ✅ Fetch Books (with search support)
   const fetchBooks = async (page, search = "") => {
     setLoading(true);
     try {
       let res;
 
-      if (search.trim()) {
-        // if searching, call search API (you must implement this on backend)
-        res = await viewBook.searchBookByName(search, page, 1);
+      if (search.trim() !== "") {
+        // 🔍 Call search API
+        res = await viewBook.searchBookByName(search, page, 6);
       } else {
-        res = await viewBook.saveviewBook(page, 1);
+        // 📚 Normal view API
+        res = await viewBook.saveviewBook(page, 6);
       }
 
-      const data = res.data;
-      setBooks(data.BookList || []);
-      setCurrentPage(data.currentPage || page);
-      setTotalPages(data.totalPages || 1);
+     const data = res.data;
+setBooks(data.BookList || data.data || []); // support both APIs
+setCurrentPage(data.currentPage || data.page || page);
+setTotalPages(data.totalPages || 1);
     } catch (err) {
       console.error("Failed to fetch books:", err);
       setBooks([]);
@@ -36,10 +39,16 @@ export default function ViewBook() {
     }
   };
 
+  // ✅ Refresh whenever page or searchTerm changes (with debounce)
   useEffect(() => {
-    fetchBooks(currentPage, searchTerm);
+    const delayDebounce = setTimeout(() => {
+      fetchBooks(currentPage, searchTerm);
+    }, 500); // wait 500ms before API call
+
+    return () => clearTimeout(delayDebounce);
   }, [currentPage, searchTerm]);
 
+  // ✅ Show success/error messages
   const showMessage = (text, type = "success") => {
     setMessage(text);
     setMessageType(type);
@@ -49,9 +58,10 @@ export default function ViewBook() {
     }, 3000);
   };
 
+  // ✅ Delete Book
   const handleDelete = async (id) => {
     try {
-      const res = await viewBook.savedeletebook(id, currentPage);
+      const res = await viewBook.savedeletebook(id);
       if (res.data.status === "delete") {
         showMessage("✅ Book deleted successfully", "success");
         fetchBooks(currentPage, searchTerm);
@@ -64,16 +74,13 @@ export default function ViewBook() {
     }
   };
 
-  const handleUpdate = (id) => {
-    console.log("Update book with ID:", id);
-  };
-
+  // ✅ Pagination
   const handlePrev = () => {
-    if (currentPage > 1) setCurrentPage(prev => prev - 1);
+    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
   };
 
   const handleNext = () => {
-    if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
+    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
   };
 
   return (
@@ -88,7 +95,7 @@ export default function ViewBook() {
             type="text"
             value={searchTerm}
             onChange={(e) => {
-              setCurrentPage(1); // reset to page 1 on search
+              setCurrentPage(1); // reset to first page
               setSearchTerm(e.target.value);
             }}
             placeholder="Search book by title..."
@@ -145,12 +152,12 @@ export default function ViewBook() {
                         </button>
                       </td>
                       <td>
-                        <button
-                          className="link-button update-button"
-                          onClick={() => handleUpdate(book.book_id)}
+                        <NavLink
+                          to={`/updatebook/${book.book_id}`}
+                          className="link-button"
                         >
                           ✍️
-                        </button>
+                        </NavLink>
                       </td>
                     </tr>
                   ))
@@ -181,7 +188,10 @@ export default function ViewBook() {
                   </button>
                 );
               })}
-              <button onClick={handleNext} disabled={currentPage === totalPages}>
+              <button
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+              >
                 Next
               </button>
             </div>

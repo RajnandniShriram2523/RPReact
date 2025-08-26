@@ -137,7 +137,7 @@ export default function ViewCategory() {
                                             </td>
                                             <td>
                                                 <NavLink to={`/updatecategory/${cat.category_id}`} className="link-button">
-                                                    update
+                                                    ✍️
                                                 </NavLink>
                                             </td>
                                         </tr>

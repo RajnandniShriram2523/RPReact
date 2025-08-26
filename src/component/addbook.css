@@ -1,14 +1,14 @@
 /* Container */
 .main3 {
 width:100vw;
-    height:100vh;
+    min-height:100vh;
     /* background-color: rgb(207, 207, 15); */
      background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
     background-size:cover;
     background-repeat: no-repeat; 
     display:flex;
     /* align-items: center; */
-    position:fixed;
+    /* position:fixed; */
     gap:3%;
     /* justify-content: center;  */}
 

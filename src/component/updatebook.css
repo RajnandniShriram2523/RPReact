@@ -1,0 +1,80 @@
+/* Container Layout */
+/* .main22
+{
+  width: 100vw;
+  min-height: 100vh;
+  background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  position: fixed;
+  background-color: #357abd;
+   gap: 8%;
+
+}  */
+.update-container {
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  /* padding: 40px; */
+  background: #f5f6fa;
+  min-height: 100vh;
+}
+
+.update-card {
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 420px;
+}
+
+.update-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #2c3e50;
+}
+
+.update-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.update-form label {
+  font-weight: 500;
+  color: #34495e;
+}
+
+.update-form input,
+.update-form select {
+  padding: 10px;
+  border: 1px solid #dcdde1;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.update-form input:focus,
+.update-form select:focus {
+  border-color: #2980b9;
+  box-shadow: 0 0 4px rgba(41,128,185,0.4);
+}
+
+.update-btn {
+  background: #2980b9;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 15px;
+}
+
+.update-btn:hover {
+  background: #1c5d85;
+}
