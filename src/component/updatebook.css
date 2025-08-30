@@ -1,80 +1,126 @@
-/* Container Layout */
-/* .main22
-{
-  width: 100vw;
-  min-height: 100vh;
-  background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
-  background-size: cover;
-  background-repeat: no-repeat;
+/* Main layout */
+.updatebook-main {
   display: flex;
-  position: fixed;
-  background-color: #357abd;
-   gap: 8%;
-
-}  */
-.update-container {
-  display: flex;
-  /* justify-content: center;
-  align-items: center; */
-  /* padding: 40px; */
-  background: #f5f6fa;
   min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #f0f4ff, #e2e8f0);
 }
 
-.update-card {
-  background: #ffffff;
-  padding: 30px 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  width: 420px;
+/* Sidebar style */
+.updatebook-main > nav {
+  flex: 0 0 220px;
 }
 
-.update-title {
+/* Centered card */
+.updatebook-wrapper {
+  flex: 1;
+  margin: 60px auto;
+  max-width: 650px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+/* Gradient heading */
+.updatebook-wrapper h2 {
   text-align: center;
-  margin-bottom: 20px;
-  font-size: 22px;
-  color: #2c3e50;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 35px;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.update-form {
+/* Form group */
+.updatebook-group {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  margin-bottom: 20px;
+  position: relative;
 }
 
-.update-form label {
-  font-weight: 500;
-  color: #34495e;
+/* Inputs & selects */
+.updatebook-group input,
+.updatebook-group select {
+  padding: 12px 18px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background: rgba(255,255,255,0.9);
 }
 
-.update-form input,
-.update-form select {
-  padding: 10px;
-  border: 1px solid #dcdde1;
-  border-radius: 6px;
-  font-size: 14px;
+.updatebook-group input:focus,
+.updatebook-group select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 10px rgba(59,130,246,0.3);
   outline: none;
+}
+
+/* Floating labels */
+.updatebook-group label {
+  position: absolute;
+  top: 12px;
+  left: 18px;
+  color: #6b7280;
+  font-size: 14px;
+  pointer-events: none;
   transition: 0.2s;
 }
 
-.update-form input:focus,
-.update-form select:focus {
-  border-color: #2980b9;
-  box-shadow: 0 0 4px rgba(41,128,185,0.4);
+.updatebook-group input:focus + label,
+.updatebook-group input:not(:placeholder-shown) + label,
+.updatebook-group select:focus + label,
+.updatebook-group select:not([value=""]) + label {
+  top: -8px;
+  left: 15px;
+  font-size: 12px;
+  color: #3b82f6;
+  background: rgba(255,255,255,0.85);
+  padding: 0 5px;
 }
 
-.update-btn {
-  background: #2980b9;
-  color: white;
+/* Button */
+.updatebook-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
   border: none;
-  padding: 12px;
-  font-size: 15px;
-  border-radius: 8px;
+  border-radius: 15px;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s;
-  margin-top: 15px;
+  transition: all 0.3s ease;
 }
 
-.update-btn:hover {
-  background: #1c5d85;
+.updatebook-btn:hover {
+  background: linear-gradient(90deg, #2563eb, #0d9488);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+}
+
+/* Message */
+.updatebook-message {
+  text-align: center;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 500;
+  margin-bottom: 25px;
+  font-size: 15px;
+}
+
+.updatebook-message.success {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.updatebook-message.error {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
 }

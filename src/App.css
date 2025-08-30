@@ -66,9 +66,9 @@ body {
 } */
 
 
-.btn-primary {  
-   width: 150px; /*You can adjust this value */
-   display: inline-block;/* Needed for width to apply on <a> */
+ /* .btn-primary {  
+   width: 150px; You can adjust this value 
+   display: inline-block; Needed for width to apply on <a> 
    text-align: center;
   padding: 10px;
   margin-right: 50px;
@@ -81,9 +81,9 @@ body {
   border-radius: 10px;
 }
 
+ */
 
-
-.btn-primary:hover {
+/*.btn-primary:hover {
   background-color:rgb(16, 107, 182);
- /*  color: white; */
-}
+   color: white; 
+} */

@@ -1,6 +1,19 @@
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from 'react-router-dom';
+import {
+  FaTachometerAlt,
+  FaBook,
+  FaUserGraduate,
+  FaClipboardList,
+  FaFolderPlus,
+  FaListAlt,
+  FaBookOpen,
+  FaUserPlus,
+  FaBookReader,
+  FaEnvelope,
+  FaSignOutAlt,
+  FaUserCircle
+} from "react-icons/fa";
 import "./adminslidebar.css";
 
 const AdminSidebar = () => {
@@ -18,83 +31,92 @@ const AdminSidebar = () => {
   };
 
   return (
-    <div className='main10'>
+    <div className="sidebar-main">
       <aside className="sidebar">
-        <h2>Admin Panel</h2>
+        {/* Admin Profile */}
+        <div className="admin-profile">
+          <FaUserCircle className="profile-icon" />
+          <div className="admin-info">
+            <span className="admin-name">Admin Panel</span>
+            <span className="admin-role">Administrator</span>
+          </div>
+        </div>
+
+        {/* Sidebar Menu */}
         <ul className="sidebar-list">
           <li>
-            <Link className="sidebar-button" to="/admindashboard">Dashboard</Link>
+            <Link className="sidebar-button" to="/admindashboard">
+              <FaTachometerAlt className="icon" /> Dashboard
+            </Link>
           </li>
 
           <li>
             <div className="sidebar-button" onClick={() => toggleMenu("category")}>
-              Category
+              <FaFolderPlus className="icon" /> Category
             </div>
             {openMenu === "category" && (
               <ul className="submenu">
-                <li><Link className="sidebar-button" to="/addcategory">Add Category</Link></li>
-                <li><Link className="sidebar-button" to="/viewcategory">View Category</Link></li>
+                <li><Link className="sidebar-button" to="/addcategory"><FaFolderPlus className="sub-icon" /> Add Category</Link></li>
+                <li><Link className="sidebar-button" to="/viewcategory"><FaListAlt className="sub-icon" /> View Category</Link></li>
               </ul>
             )}
           </li>
 
           <li>
             <div className="sidebar-button" onClick={() => toggleMenu("book")}>
-              Book
+              <FaBook className="icon" /> Book
             </div>
             {openMenu === "book" && (
               <ul className="submenu">
-                <li><Link className="sidebar-button" to="/addbook">Add Book</Link></li>
-                <li><Link className="sidebar-button" to="/viewbook">View Book</Link></li>
+                <li><Link className="sidebar-button" to="/addbook"><FaBookOpen className="sub-icon" /> Add Book</Link></li>
+                <li><Link className="sidebar-button" to="/viewbook"><FaListAlt className="sub-icon" /> View Book</Link></li>
               </ul>
             )}
           </li>
 
           <li>
             <div className="sidebar-button" onClick={() => toggleMenu("student")}>
-              Student
+              <FaUserGraduate className="icon" /> Student
             </div>
             {openMenu === "student" && (
               <ul className="submenu">
-                <li><Link className="sidebar-button" to="/addstudent">Add Student</Link></li>
-                <li><Link className="sidebar-button" to="/viewstudent">View Student</Link></li>
+                <li><Link className="sidebar-button" to="/addstudent"><FaUserPlus className="sub-icon" /> Add Student</Link></li>
+                <li><Link className="sidebar-button" to="/viewstudent"><FaListAlt className="sub-icon" /> View Student</Link></li>
               </ul>
             )}
           </li>
 
           <li>
             <div className="sidebar-button" onClick={() => toggleMenu("issued")}>
-              Issued Book
+              <FaClipboardList className="icon" /> Issued Book
             </div>
             {openMenu === "issued" && (
               <ul className="submenu">
-                <li><Link className="sidebar-button" to="/AddIssuedBook">Add Issuedbook</Link></li>
-                <li><Link className="sidebar-button" to="/viewissuedbook">View All Issued Book</Link></li>
+                <li><Link className="sidebar-button" to="/AddIssuedBook"><FaBookReader className="sub-icon" /> Add Issued Book</Link></li>
+                <li><Link className="sidebar-button" to="/viewissuedbook"><FaListAlt className="sub-icon" /> View Issued Books</Link></li>
               </ul>
             )}
           </li>
 
           <li>
             <div className="sidebar-button" onClick={() => toggleMenu("studentData")}>
-              Student Data
+              <FaEnvelope className="icon" /> Student Data
             </div>
             {openMenu === "studentData" && (
               <ul className="submenu">
-                <li><Link className="sidebar-button" to="/viewstudentbookdatabyid">View by ID</Link></li>
-                <li><Link className="sidebar-button" to="/viewstdbookdatabyuseremail">View by Email</Link></li>
+                <li><Link className="sidebar-button" to="/viewstudentbookdatabyid"><FaUserGraduate className="sub-icon" /> View by ID</Link></li>
+                <li><Link className="sidebar-button" to="/viewstdbookdatabyuseremail"><FaEnvelope className="sub-icon" /> View by Email</Link></li>
               </ul>
             )}
           </li>
 
           <li>
-            <input type='button' onClick={handleLogout} value="Logout" />
+            <div className="sidebar-button logout" onClick={handleLogout}>
+              <FaSignOutAlt className="icon" /> Logout
+            </div>
           </li>
         </ul>
       </aside>
-
-      {/* <div className='dashboard'>
-        <h1>Welcome to Admin Dashboard</h1>
-      </div> */}
     </div>
   );
 };

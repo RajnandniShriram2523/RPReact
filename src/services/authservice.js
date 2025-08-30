@@ -46,6 +46,19 @@ class AdminAuthService {
     return localStorage.getItem("role");
   }
 
+  getProfile() {
+    const token = this.getToken();
+    console.log("🔑 Token is:", token);
+
+    return axios
+      .get("http://localhost:4000/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => res.data);
+  }
+
   getUser() {
     return JSON.parse(localStorage.getItem("user"));
   }

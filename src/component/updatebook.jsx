@@ -1,16 +1,14 @@
-// src/components/updatebook.jsx
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DataService from "../services/dataservice";
 import AdminSidebar from "./adminslidebar";
 import "./updatebook.css";
 
-function UpdateBook() {
+export default function UpdateBook() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [book, setBook] = useState({
-    book_id: "",
+  const [formData, setFormData] = useState({
     book_title: "",
     book_author: "",
     book_price: "",
@@ -21,174 +19,109 @@ function UpdateBook() {
   });
 
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState("");
-  const [loading, setLoading] = useState(false);
 
-  // Load book + categories
   useEffect(() => {
-    const load = async () => {
-      try {
-        const [bookRes, catRes] = await Promise.all([
-          DataService.getBookById(id),
-          DataService.getAllCategories()
-        ]);
-
-        // Book response is the row object (see controller)
-        const b = bookRes.data || {};
-        setBook({
-          book_id: b.book_id || "",
-          book_title: b.book_title || "",
-          book_author: b.book_author || "",
-          book_price: b.book_price ?? "",
-          book_published_date: b.book_published_date ? b.book_published_date.substring(0, 10) : "",
-          isbn_code: b.isbn_code || "",
-          category_id: b.category_id ?? "",
-          status: String(b.status ?? "") // keep as string for <select>
+    DataService.getBookById(id)
+      .then(res => {
+        setFormData({
+          book_title: res.data.book_title,
+          book_author: res.data.book_author,
+          book_price: res.data.book_price,
+          book_published_date: res.data.book_published_date.split('T')[0],
+          isbn_code: res.data.isbn_code,
+          category_id: res.data.category_id,
+          status: res.data.status || "available"
         });
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
 
-        // Categories
-        setCategories(catRes.data?.CategoryList || []);
-      } catch (err) {
-        console.error("Error fetching book/categories:", err);
-        showMessage("❌ Could not load book or categories", "error");
-      }
-    };
-
-    if (id) load();
+    DataService.getCategories()
+      .then(res => setCategories(res.data))
+      .catch(err => console.error(err));
   }, [id]);
 
-  const showMessage = (text, type = "success") => {
-    setMessage(text);
-    setMessageType(type);
-    setTimeout(() => {
-      setMessage("");
-      setMessageType("");
-    }, 3000);
-  };
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setBook((prev) => ({ ...prev, [name]: value }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const validate = () => {
-    if (!book.book_title.trim()) {
-      showMessage("Book title is required", "error");
-      return false;
-    }
-    if (!book.book_author.trim()) {
-      showMessage("Author is required", "error");
-      return false;
-    }
-    if (!book.book_price || Number(book.book_price) <= 0) {
-      showMessage("Enter a valid price", "error");
-      return false;
-    }
-    return true;
-  };
-
-  const handleUpdate = async () => {
-    if (!validate()) return;
-    setLoading(true);
-    try {
-      await DataService.updateBook(id, {
-        book_title: book.book_title,
-        book_author: book.book_author,
-        book_price: book.book_price,
-        book_published_date: book.book_published_date || null,
-        isbn_code: book.isbn_code,
-        category_id: book.category_id || null,
-        status: book.status === "" ? null : book.status
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    DataService.updateBook(id, formData)
+      .then(() => {
+        setMessage("✅ Book updated successfully!");
+        setTimeout(() => navigate("/viewbook"), 1500);
+      })
+      .catch(err => {
+        console.error(err);
+        setMessage("❌ Update failed!");
       });
-      showMessage("✅ Book updated successfully!", "success");
-      setTimeout(() => navigate("/viewbook"), 800);
-    } catch (err) {
-      console.error("Error updating book:", err);
-      showMessage("❌ Error updating book", "error");
-    } finally {
-      setLoading(false);
-    }
   };
+
+  if (loading) return <h3>Loading book data...</h3>;
 
   return (
-    <div className="main16">
-      <AdminSidebar />
-      <div className="update-book-box">
+    <div className="updatebook-main">
+      {/* <AdminSidebar /> */}
+      <div className="updatebook-wrapper">
+        {message && (
+          <div className={`updatebook-message ${message.includes("❌") ? "error" : "success"}`}>
+            {message}
+          </div>
+        )}
         <h2>Update Book</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="updatebook-group">
+            <input type="text" name="book_title" value={formData.book_title} onChange={handleChange} placeholder=" " required />
+            <label>Title</label>
+          </div>
 
-        <label>Book ID</label>
-        <input type="text" name="book_id" value={book.book_id} disabled />
+          <div className="updatebook-group">
+            <input type="text" name="book_author" value={formData.book_author} onChange={handleChange} placeholder=" " required />
+            <label>Author</label>
+          </div>
 
-        <label>Book Title</label>
-        <input
-          type="text"
-          name="book_title"
-          placeholder="Book Title"
-          value={book.book_title}
-          onChange={handleChange}
-        />
+          <div className="updatebook-group">
+            <input type="number" name="book_price" value={formData.book_price} onChange={handleChange} placeholder=" " required />
+            <label>Price</label>
+          </div>
 
-        <label>Author</label>
-        <input
-          type="text"
-          name="book_author"
-          placeholder="Author"
-          value={book.book_author}
-          onChange={handleChange}
-        />
+          <div className="updatebook-group">
+            <input type="date" name="book_published_date" value={formData.book_published_date} onChange={handleChange} placeholder=" " required />
+            <label>Published Date</label>
+          </div>
 
-        <label>Price</label>
-        <input
-          type="number"
-          name="book_price"
-          placeholder="Price"
-          value={book.book_price}
-          onChange={handleChange}
-        />
+          <div className="updatebook-group">
+            <input type="text" name="isbn_code" value={formData.isbn_code} onChange={handleChange} placeholder=" " required />
+            <label>ISBN Code</label>
+          </div>
 
-        <label>Published</label>
-        <input
-          type="date"
-          name="book_published_date"
-          value={book.book_published_date}
-          onChange={handleChange}
-        />
+          <div className="updatebook-group">
+            <select name="category_id" value={formData.category_id} onChange={handleChange} required>
+              <option value="">Select Category</option>
+              {categories.map(cat => (
+                <option key={cat.category_id} value={cat.category_id}>{cat.category_name}</option>
+              ))}
+            </select>
+            <label>Category</label>
+          </div>
 
-        <label>ISBN Code</label>
-        <input
-          type="text"
-          name="isbn_code"
-          placeholder="ISBN Code"
-          value={book.isbn_code}
-          onChange={handleChange}
-        />
+          <div className="updatebook-group">
+            <select name="status" value={formData.status} onChange={handleChange} required>
+              <option value="available">Available</option>
+              <option value="issued">Issued</option>
+            </select>
+            <label>Status</label>
+          </div>
 
-        <label>Category</label>
-        <select name="category_id" value={book.category_id} onChange={handleChange}>
-          <option value="">Select Category</option>
-          {categories.map((c) => (
-            <option key={c.category_id} value={c.category_id}>
-              {c.category_name}
-            </option>
-          ))}
-        </select>
-
-        <label>Status</label>
-        <select name="status" value={book.status} onChange={handleChange}>
-          <option value="">Select Status</option>
-          <option value="1">Active</option>
-          <option value="0">Inactive</option>
-        </select>
-
-        <button onClick={handleUpdate} disabled={loading}>
-          {loading ? "Updating..." : "Update"}
-        </button>
-
-        {message && <p className={`update-message ${messageType}`}>{message}</p>}
+          <button type="submit" className="updatebook-btn">Update Book</button>
+        </form>
       </div>
     </div>
   );
 }
-
-export default UpdateBook;

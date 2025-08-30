@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Use useNavigate hook
 import './userpanel.css';
 
-const Userslidebar = () => {
+const Userpanel = () => {
   const navigate = useNavigate(); // Initialize navigate hook
 
   const handleLogout = () => {
@@ -26,7 +26,7 @@ const Userslidebar = () => {
 
       {/* Sidebar Links */}
       <ul className="data-list">
-        <li><Link className="sidebar-btn" to="/userprofile">Profile</Link></li>
+        <li><Link className="sidebar-btn" to="/view-profile">Profile</Link></li>
         <li><Link className="sidebar-btn" to="/userbook">View Books</Link></li>
         <li><Link className="sidebar-btn" to="*">Issue Books</Link></li>
         <li><Link className="sidebar-btn" to="*">Returned Books</Link></li>
@@ -39,4 +39,4 @@ const Userslidebar = () => {
   );
 };
 
-export default Userslidebar;
+export default Userpanel;

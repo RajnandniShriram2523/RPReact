@@ -1,0 +1,129 @@
+/* Center wrapper */
+.main1000{
+     min-width: 100vw;
+  min-height: 100vh;
+  background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  /* position: fixed; */
+  background-color: #357abd;
+    gap:15%;
+
+}
+.update-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 40px; */
+  width:100%;
+  /* background-color:red; */
+}
+
+/* Card design */
+.update-card {
+  /* width:100%; */
+  min-width: 500px;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  animation: fadeIn 0.4s ease-in-out;
+
+}
+
+/* Header with gradient */
+.update-header {
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+  padding: 20px;
+  text-align: center;
+}
+
+.update-header h2 {
+  color: white;
+  margin: 0;
+  font-size: 22px;
+}
+
+/* Form */
+.update-form {
+  padding: 25px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.update-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
+}
+
+.update-form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.update-form input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 6px rgba(0,123,255,0.3);
+  outline: none;
+}
+
+/* Button */
+.update-btn {
+  width: 100%;
+  padding: 12px;
+  background: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.update-btn:hover {
+  background: #0056b3;
+}
+
+/* Message box */
+.message {
+  margin: 20px;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.message.success {
+  background: #e6ffe6;
+  color: #008000;
+  border: 1px solid #8fd88f;
+}
+
+.message.error {
+  background: #ffe6e6;
+  color: #cc0000;
+  border: 1px solid #ff9999;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  margin-top: 50px;
+  color: #555;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}

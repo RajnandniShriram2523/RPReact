@@ -38,6 +38,8 @@ const AddIssuedBook = () => {
           setStudents(res.data.studentList);
         } else {
           setStudents([]);
+          setMsg("❗ Student list is empty or unexpected format.");
+          setMsgType("error");
         }
       })
       .catch((err) => {
@@ -101,7 +103,8 @@ const AddIssuedBook = () => {
     <div className="issue-book-container">
       <AdminSidebar />
       <div className="issue-book-form">
-        <h2>Add Issue Book</h2><br />
+        <h2>Add Issue Book</h2>
+        <br />
 
         {/* Book Dropdown */}
         <label>Select Book:</label>
@@ -114,7 +117,8 @@ const AddIssuedBook = () => {
               </option>
             ))}
           </select>
-        </div><br />
+        </div>
+        <br />
 
         {/* Student Dropdown */}
         <label>Select Student:</label>
@@ -127,7 +131,8 @@ const AddIssuedBook = () => {
               </option>
             ))}
           </select>
-        </div><br />
+        </div>
+        <br />
 
         {/* Return Date */}
         <label>Return Date:</label>
@@ -135,7 +140,8 @@ const AddIssuedBook = () => {
           type="date"
           value={returnDate}
           onChange={(e) => setReturnDate(e.target.value)}
-        /><br />
+        />
+        <br />
 
         {/* Status Dropdown */}
         <label>Status:</label>
@@ -143,12 +149,17 @@ const AddIssuedBook = () => {
           <option value="">Select Status</option>
           <option value="issued">Issued</option>
           <option value="returned">Returned</option>
-        </select><br />
+        </select>
+        <br />
 
         {/* Buttons */}
         <div className="buttons">
-          <button className="bttn" onClick={handleIssue}>Issue Book</button>
-          <button className="btnn" onClick={handleClear}>Clear</button>
+          <button className="bttn" onClick={handleIssue}>
+            Issue Book
+          </button>
+          <button className="btnn" onClick={handleClear}>
+            Clear
+          </button>
         </div>
 
         {/* Message */}

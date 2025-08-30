@@ -10,13 +10,20 @@ export default function Viewissuedbook() {
   const [currentPage, setCurrentPage] = useState(1);
   const [limit] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchName, setSearchName] = useState("");
 
   const navigate = useNavigate();
 
-  const fetchIssuedBooks = (page, limit) => {
+  const fetchIssuedBooks = (page, limit, student_name = "") => {
     setLoading(true);
-    viewissuedbook
-      .getIssuedBooks(page, limit)
+
+    const fetchMethod = student_name
+      ? viewissuedbook.searchIssuedBooksByStudentName
+      : viewissuedbook.getIssuedBooks;
+
+    const args = student_name ? [student_name] : [page, limit];
+
+    fetchMethod(...args)
       .then((res) => {
         const data = res.data;
         setIssuedBooks(data.BookList || []);
@@ -30,7 +37,9 @@ export default function Viewissuedbook() {
   };
 
   useEffect(() => {
-    fetchIssuedBooks(currentPage, limit);
+    if (!searchName.trim()) {
+      fetchIssuedBooks(currentPage, limit);
+    }
   }, [currentPage]);
 
   const handleFilterChange = (e) => {
@@ -43,12 +52,50 @@ export default function Viewissuedbook() {
     }
   };
 
+  const handleSearch = (e) => {
+    const name = e.target.value;
+    setSearchName(name);
+    setCurrentPage(1);
+    if (name.trim() === "") {
+      fetchIssuedBooks(1, limit);
+    } else {
+      fetchIssuedBooks(null, null, name.trim());
+    }
+  };
+
   const handlePrev = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1);
   };
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+  };
+
+  const toggleToReturned = async (issue_id) => {
+    try {
+      const res = await viewissuedbook.toggleStatus(issue_id);
+
+      if (res.data?.status === "success" && res.data.newStatus === "returned") {
+        const returnDate = new Date().toISOString().substring(0, 10);
+
+        setIssuedBooks((prevBooks) =>
+          prevBooks.map((book) =>
+            book.issue_id === issue_id
+              ? {
+                  ...book,
+                  status: "returned",
+                  return_date: returnDate,
+                }
+              : book
+          )
+        );
+      } else {
+        alert("Failed to update status.");
+      }
+    } catch (error) {
+      console.error("Failed to update status:", error);
+      alert("Error updating book status.");
+    }
   };
 
   return (
@@ -60,7 +107,12 @@ export default function Viewissuedbook() {
 
           {/* Search and Filter */}
           <div className="issuedbook-search">
-            <input type="text" placeholder="Search issued books..." />
+            <input
+              type="text"
+              placeholder="Search issued books by student name..."
+              value={searchName}
+              onChange={handleSearch}
+            />
             <select className="issuedbook-dropdown" onChange={handleFilterChange}>
               <option value="">Filter by status</option>
               <option value="issued">Issued</option>
@@ -94,7 +146,15 @@ export default function Viewissuedbook() {
                         <td>{book.issue_date?.substring(0, 10) || "N/A"}</td>
                         <td>{book.due_date?.substring(0, 10) || "N/A"}</td>
                         <td>{book.return_date?.substring(0, 10) || "N/A"}</td>
-                        <td>{book.status}</td>
+                        <td>
+                          {book.status === "issued" ? (
+                            <button onClick={() => toggleToReturned(book.issue_id)}>
+                              Mark as Returned
+                            </button>
+                          ) : (
+                            <span className="returned-label">Returned</span>
+                          )}
+                        </td>
                       </tr>
                     ))
                   ) : (
@@ -107,17 +167,20 @@ export default function Viewissuedbook() {
                 </tbody>
               </table>
 
-              <div className="pagination-controls" style={{ textAlign: "center", marginTop: "20px" }}>
-                <button onClick={handlePrev} disabled={currentPage === 1}>
-                  Prev
-                </button>
-                <span style={{ margin: "0 10px" }}>
-                  Page {currentPage} of {totalPages}
-                </span>
-                <button onClick={handleNext} disabled={currentPage === totalPages}>
-                  Next
-                </button>
-              </div>
+              {/* Show pagination only when not searching */}
+              {searchName.trim() === "" && (
+                <div className="pagination-controls" style={{ textAlign: "center", marginTop: "20px" }}>
+                  <button onClick={handlePrev} disabled={currentPage === 1}>
+                    Prev
+                  </button>
+                  <span style={{ margin: "0 10px" }}>
+                    Page {currentPage} of {totalPages}
+                  </span>
+                  <button onClick={handleNext} disabled={currentPage === totalPages}>
+                    Next
+                  </button>
+                </div>
+              )}
             </>
           )}
         </div>

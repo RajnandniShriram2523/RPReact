@@ -40,7 +40,7 @@ export default function UpdateCategory() {
 
   return (
     <div className="update-container">
-      <AdminSidebar />
+      {/* <AdminSidebar /> */}
       <div className="update-content">
         <div className="update-card">
           <h2 className="update-title">Update Category</h2>

@@ -8,40 +8,65 @@ export default function ViewOnlyIssuedBooks() {
   const [issuedBooks, setIssuedBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit] = useState(5); // I increased limit to 5 for consistency
+  const [limit] = useState(2);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchOnlyIssuedBooks(currentPage, limit);
-  }, [currentPage, limit]);
+    if (searchTerm.trim() === "") {
+      fetchOnlyIssuedBooks(currentPage, limit);
+    } else {
+      searchIssuedBooks(searchTerm);
+    }
+  }, [currentPage, limit, searchTerm]);
 
-  const fetchOnlyIssuedBooks = (page, limit) => {
+  const fetchOnlyIssuedBooks = async (page, limit) => {
     setLoading(true);
-    viewonlyissuedbook
-      .getOnlyIssuedBooks(page, limit)
-      .then((res) => {
-        const data = res.data;
-        setIssuedBooks(data.BookList || []);
-        setTotalPages(data.totalPages || 1);
-      })
-      .catch((err) => {
-        console.error("Error fetching only issued books:", err);
-        setIssuedBooks([]);
-      })
-      .finally(() => setLoading(false));
+    try {
+      const res = await viewonlyissuedbook.getOnlyIssuedBooks(page, limit);
+      const data = res.data;
+      setIssuedBooks(data.data || []);
+      setTotalPages(data.totalPages || 1);
+    } catch (err) {
+      console.error("Error fetching only issued books:", err);
+      setIssuedBooks([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const searchIssuedBooks = async (studentName) => {
+    setLoading(true);
+    try {
+      const res = await viewonlyissuedbook.searchOnlyIssuedBooksByStudentName(studentName);
+      const data = res.data;
+
+      setIssuedBooks(data.data || []);
+      setTotalPages(1);
+      setCurrentPage(1);
+    } catch (err) {
+      console.error("Error searching issued books:", err);
+      setIssuedBooks([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleFilterChange = (e) => {
     const value = e.target.value;
     if (value === "") {
-      navigate("/viewissuedbook"); // go back to full issued book list
+      navigate("/viewissuedbook");
     } else if (value === "issued") {
-      navigate("/viewonlyissuedbook"); // stay here
+      navigate("/viewonlyissuedbook");
     } else if (value === "returned") {
-      navigate("/viewonlyreturnedbook"); // go to returned books page
+      navigate("/viewonlyreturnedbook");
     }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
   };
 
   const handlePrev = () => {
@@ -52,6 +77,34 @@ export default function ViewOnlyIssuedBooks() {
     if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
   };
 
+  // ✅ Toggle status from issued to returned
+  const toggleToReturned = async (issue_id) => {
+    try {
+      const res = await viewonlyissuedbook.toggleStatus(issue_id);
+
+      if (res.data?.status === "success" && res.data.newStatus === "returned") {
+        const returnDate = new Date().toISOString().substring(0, 10);
+
+        setIssuedBooks((prevBooks) =>
+          prevBooks.map((book) =>
+            book.issue_id === issue_id
+              ? {
+                  ...book,
+                  status: "returned",
+                  return_date: returnDate,
+                }
+              : book
+          )
+        );
+      } else {
+        alert("Failed to update status.");
+      }
+    } catch (error) {
+      console.error("Failed to update status:", error);
+      alert("Error updating book status.");
+    }
+  };
+
   return (
     <div className="main-issued">
       <AdminSidebar />
@@ -59,10 +112,18 @@ export default function ViewOnlyIssuedBooks() {
         <div className="issuedbook-container">
           <h3 className="issuedbook-title">Issued Book List</h3>
 
-          {/* Search and Filter */}
           <div className="issuedbook-search">
-            <input type="text" placeholder="Search issued books..." />
-            <select className="issuedbook-dropdown" onChange={handleFilterChange} value="issued">
+            <input
+              type="text"
+              placeholder="Search issued books by student name..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            <select
+              className="issuedbook-dropdown"
+              onChange={handleFilterChange}
+              value="issued"
+            >
               <option value="">Filter by status</option>
               <option value="issued">Issued</option>
               <option value="returned">Returned</option>
@@ -95,7 +156,15 @@ export default function ViewOnlyIssuedBooks() {
                         <td>{book.issue_date?.substring(0, 10) || "N/A"}</td>
                         <td>{book.due_date?.substring(0, 10) || "N/A"}</td>
                         <td>{book.return_date?.substring(0, 10) || "N/A"}</td>
-                        <td>{book.status}</td>
+                        <td>
+                          {book.status === "issued" ? (
+                            <button onClick={() => toggleToReturned(book.issue_id)}>
+                              Mark as Returned
+                            </button>
+                          ) : (
+                            <span className="returned-label">Returned</span>
+                          )}
+                        </td>
                       </tr>
                     ))
                   ) : (

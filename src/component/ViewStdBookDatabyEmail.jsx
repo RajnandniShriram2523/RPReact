@@ -11,40 +11,36 @@ export default function ViewStdBookDatabyEmail() {
   const [returnedBooks, setReturnedBooks] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [limit] = useState(2);
-  const [totalPages, setTotalPages] = useState(1);
-
-  const fetchStudentBooks = (student_email, page, limit) => {
+  // Fetch books by student email
+  const fetchStudentBooks = (student_email) => {
     if (!student_email) return;
     setLoading(true);
 
     viewstdbookdataemail
-      .getstdBooksDataByEmail(student_email, page, limit)
+      .getstdBooksDataByEmail(student_email)
       .then((res) => {
         const allBooks = res.data.data || [];
 
-        const issued = allBooks.filter(book => book.status === 'issued');
-        const returned = allBooks.filter(book => book.status === 'returned' || book.status === 'overdue');
+        const issued = allBooks.filter((book) => book.status === "issued");
+        const returned = allBooks.filter(
+          (book) => book.status === "returned" || book.status === "overdue"
+        );
 
         setIssuedBooks(issued);
         setReturnedBooks(returned);
-
-        setTotalPages(res.data.totalPages || 1);
       })
       .catch(() => {
         setIssuedBooks([]);
         setReturnedBooks([]);
-        setTotalPages(1);
       })
       .finally(() => setLoading(false));
   };
 
   useEffect(() => {
     if (studentEmail) {
-      fetchStudentBooks(studentEmail, currentPage, limit);
+      fetchStudentBooks(studentEmail);
     }
-  }, [studentEmail, currentPage]);
+  }, [studentEmail]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -52,7 +48,6 @@ export default function ViewStdBookDatabyEmail() {
     if (!trimmed) return;
 
     setStudentEmail(trimmed);
-    setCurrentPage(1);
   };
 
   const handleClear = () => {
@@ -60,16 +55,40 @@ export default function ViewStdBookDatabyEmail() {
     setStudentEmail(null);
     setIssuedBooks([]);
     setReturnedBooks([]);
-    setTotalPages(1);
-    setCurrentPage(1);
   };
 
-  const handlePrev = () => {
-    if (currentPage > 1) setCurrentPage(prev => prev - 1);
-  };
+  // === New toggle function to mark issued book as returned ===
+  const toggleToReturned = async (issue_id) => {
+    try {
+      const res = await viewstdbookdataemail.toggleStatus(issue_id); // Your API call
 
-  const handleNext = () => {
-    if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
+      if (res.data?.status === "success" && res.data.newStatus === "returned") {
+        const returnDate = new Date().toISOString().substring(0, 10);
+
+        // Remove from issuedBooks
+        setIssuedBooks((prevBooks) =>
+          prevBooks.filter((book) => book.issue_id !== issue_id)
+        );
+
+        // Find the toggled book from issuedBooks before filtering
+        const returnedBook = issuedBooks.find((book) => book.issue_id === issue_id);
+        if (returnedBook) {
+          // Update status & return_date
+          const updatedBook = {
+            ...returnedBook,
+            status: "returned",
+            return_date: returnDate,
+          };
+          // Add to returnedBooks at the top
+          setReturnedBooks((prevReturned) => [updatedBook, ...prevReturned]);
+        }
+      } else {
+        alert("Failed to update status.");
+      }
+    } catch (error) {
+      console.error("Failed to update status:", error);
+      alert("Error updating book status.");
+    }
   };
 
   return (
@@ -99,7 +118,9 @@ export default function ViewStdBookDatabyEmail() {
                 </button>
               )}
             </div>
-            <button type="submit" className="search-button">Search</button>
+            <button type="submit" className="search-button">
+              Search
+            </button>
           </form>
 
           {loading ? (
@@ -107,20 +128,10 @@ export default function ViewStdBookDatabyEmail() {
           ) : studentEmail ? (
             <>
               <h4>Issued Books</h4>
-              <BookTable books={issuedBooks} currentPage={currentPage} limit={limit} />
+              <BookTable books={issuedBooks} toggleToReturned={toggleToReturned} />
 
               <h4>Returned Books</h4>
-              <BookTable books={returnedBooks} currentPage={currentPage} limit={limit} />
-
-              {totalPages > 1 && (
-                <div className="pagination-controls" style={{ textAlign: "center", marginTop: "20px" }}>
-                  <button onClick={handlePrev} disabled={currentPage === 1}>Prev</button>
-                  <span style={{ margin: "0 10px" }}>
-                    Page {currentPage} of {totalPages}
-                  </span>
-                  <button onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
-                </div>
-              )}
+              <BookTable books={returnedBooks} />
             </>
           ) : (
             <p className="issuedbook-loading">Enter a student email to view book data.</p>
@@ -131,8 +142,8 @@ export default function ViewStdBookDatabyEmail() {
   );
 }
 
-// Reusable Book Table Component
-function BookTable({ books, currentPage, limit }) {
+// Reusable Book Table Component with toggle button support
+function BookTable({ books, toggleToReturned }) {
   return (
     <table className="issuedbook-table">
       <thead>
@@ -150,18 +161,31 @@ function BookTable({ books, currentPage, limit }) {
         {books.length > 0 ? (
           books.map((book, index) => (
             <tr key={book.issue_id || index}>
-              <td>{(currentPage - 1) * limit + index + 1}</td>
+              <td>{index + 1}</td>
               <td>{book.student_name || "N/A"}</td>
               <td>{book.book_title || "N/A"}</td>
               <td>{book.issue_date?.substring(0, 10) || "N/A"}</td>
               <td>{book.due_date?.substring(0, 10) || "N/A"}</td>
               <td>{book.return_date?.substring(0, 10) || "N/A"}</td>
-              <td>{book.status || "N/A"}</td>
+              <td>
+                {book.status === "issued" && toggleToReturned ? (
+                  <button
+                    className="toggle-returned-btn"
+                    onClick={() => toggleToReturned(book.issue_id)}
+                  >
+                    Mark as Returned
+                  </button>
+                ) : (
+                  <span className="returned-label">{book.status || "N/A"}</span>
+                )}
+              </td>
             </tr>
           ))
         ) : (
           <tr>
-            <td colSpan="7" className="issuedbook-nodata">No data found</td>
+            <td colSpan="7" className="issuedbook-nodata">
+              No data found
+            </td>
           </tr>
         )}
       </tbody>

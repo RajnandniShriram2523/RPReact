@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AdminAuthService from "../services/authservice.js";
-// new service for student login
 import './login.css';
 
 function login() {
@@ -20,20 +19,29 @@ function login() {
 
     try {
       if (role === "admin") {
-        // Admin login
+        // 🔑 Admin login
         const res = await AdminAuthService.login({ username, password, role });
+
+        // Save token, role, and username
         localStorage.setItem("token", res.token);
         localStorage.setItem("role", res.role);
         localStorage.setItem("username", res.username);
 
         if (res.role === "admin") navigate("/admindashboard");
-       // fallback
+
       } else {
-        // Student login
-        const res = await AdminAuthService.userlogin({ student_email: username, student_password: password });
+        // 🔑 Student login
+        const res = await AdminAuthService.userlogin({
+          student_email: username,
+          student_password: password,
+        });
 
         if (res.status === "success") {
-     AdminAuthService.setUserData(res.data);
+          // ✅ Save token + role + user data for student
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("role", "student");
+          AdminAuthService.setUserData(res.data);
+
           setMsg(res.msg);
           navigate("/userpanel");
         } else {
@@ -52,7 +60,7 @@ function login() {
 
         <form onSubmit={handleLogin}>
           <div className="mb-3 text-start">
-            <label>userma</label>
+            <label>Username</label>
             <input
               type={role === "admin" ? "text" : "email"}
               value={username}
@@ -62,7 +70,7 @@ function login() {
           </div>
 
           <div className="mb-3 text-start">
-            <label>Password:</label>
+            <label>Password</label>
             <input
               type="password"
               value={password}
@@ -85,7 +93,8 @@ function login() {
           <button type="submit" className="btn-login">Login</button>
         </form>
 
-        {role === "student" && <Link to="/register" className="btn-std">Register as Student</Link>}
+        {/* Optional: student registration link */}
+        {/* {role === "student" && <Link to="/register" className="btn-std">Register as Student</Link>} */}
       </div>
 
       <div className="login-right">

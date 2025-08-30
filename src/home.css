@@ -154,4 +154,24 @@
   30% { opacity: 1; }
   40% { opacity: 0; }
   100% { opacity: 0; }
+}.btn-primary {  
+   width: 150px; /*You can adjust this value */
+   display: inline-block;/* Needed for width to apply on <a> */
+   text-align: center;
+  padding: 10px;
+  margin-right: 50px;
+  font-size: 16px;
+  color: white;
+  background-color: rgb(50, 19, 189);
+  font-weight: 800;
+  text-decoration: none;
+  transition: 0.3s ease;
+  border-radius: 10px;
+}
+
+
+
+.btn-primary:hover {
+  background-color:rgb(16, 107, 182);
+ /*  color: white; */
 }

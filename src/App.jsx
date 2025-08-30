@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route, NavLink, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Slidelinging from "./slidelinging";
+// import Slidelinging from "./slidelinging";
 import Home from "./home";
 import About from "./about";
 import Contact from "./contact";
@@ -23,8 +23,13 @@ import ViewStdBookDatabyEmail from "./component/ViewStdBookDatabyEmail";
 import UpdateCategory from "./component/updatecategory";
 import UpdateBook from "./component/updatebook";
 import AdminDashboard from "./component/admindashboard";
-import Userslidebar from "./component/userpanel";
+
 import UserViewBooks from "./component/UserViewBook";
+import ViewProfile from "./component/viewprofile.jsx";
+import Userpanel from "./component/userpanel";
+import UpdateStudent from "./component/updatestudent.jsx";
+
+
 
 
   class App extends React.Component {
@@ -33,14 +38,14 @@ import UserViewBooks from "./component/UserViewBook";
         <BrowserRouter>
 
           <nav className="navbar navbar-expand-lg ">
-            <NavLink className="navbar-brand" to="/"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/c46c7f62556223.5a945f059c90e.png" /></NavLink>
+            <NavLink className="navbar-brand" ><img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/c46c7f62556223.5a945f059c90e.png" /></NavLink>
             <div className="collapse navbar-collapse">
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <NavLink className="nav-link" to="/"></NavLink>
-                </li>
+                </li> */}
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/home">Home</NavLink>
+                  <NavLink className="nav-link" to="/">Home</NavLink>
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/about">About</NavLink>
@@ -48,20 +53,20 @@ import UserViewBooks from "./component/UserViewBook";
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/contact">Contact Us</NavLink>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <NavLink className="nav-link" to="services"></NavLink>
-                </li>
+                </li> */}
               </ul>
             </div>
-            <div>
+            {/* <div>
               <Link to="/login" className=" btn-primary">Login</Link>
-              {/* <a href="/login" className="login_btn">Login</a> */}
-            </div>
+              {/* <a href="/login" className="login_btn">Login</a> }
+            </div> */}
           </nav>
 
           <Routes>
-            <Route path="/" element={<Slidelinging />} />
-            <Route path="/home" element={<Home />} />
+            {/* <Route path="/" element={<Slidelinging />} /> */}
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
@@ -84,8 +89,10 @@ import UserViewBooks from "./component/UserViewBook";
             <Route path="/viewissuedbook" element={<Viewissuedbook />} />
 
 
-            <Route path="/userpanel" element={<Userslidebar />}/>
+            <Route path="/userpanel" element={<Userpanel />}/>
+              <Route path="/view-profile" element={<ViewProfile />}/>
             <Route path="/userviewpanel" element={<UserViewBooks/>}/>
+             <Route path="/updatestudent/:id" element={<UpdateStudent />} />
           </Routes>
         </BrowserRouter>
       );
