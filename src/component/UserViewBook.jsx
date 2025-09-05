@@ -1,41 +1,79 @@
 import React, { useEffect, useState } from "react";
-import viewuserBook from "../services/dataservice"; // Axios API functions
+import viewBook from "../services/dataservice";
 import "./UserViewBook.css";
-import Userslidebar from "./userpanel";
+import { NavLink } from "react-router-dom";
+import Userpanel from "./userpanel.jsx";
+// import AdminSidebar from "./adminslidebar";
 
-export default function UserViewBooks() {
+export default function UserViewBook() {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const fetchBooks = (page, title) => {
+  // ✅ Fetch Books (with search support)
+  const fetchBooks = async (page, search = "") => {
     setLoading(true);
-    viewuserBook
-      .searchUserBooks(title, page, 5)
-      .then((res) => {
-        setBooks(res.data.BookList || []);
-        setCurrentPage(res.data.currentPage || 1);
-        setTotalPages(res.data.totalPages || 1);
-      })
-      .catch((err) => {
-        console.error("Error fetching books:", err);
-        setBooks([]);
-        setTotalPages(1);
-      })
-      .finally(() => setLoading(false));
+    try {
+      let res;
+
+      if (search.trim() !== "") {
+        res = await viewBook.searchBookByName(search, page, 5);
+      } else {
+        res = await viewBook.saveviewBook(page, 5);
+      }
+
+      const data = res.data;
+      setBooks(data.BookList || data.data || []);
+      setCurrentPage(data.currentPage || data.page || page);
+      setTotalPages(data.totalPages || 1);
+    } catch (err) {
+      console.error("Failed to fetch books:", err);
+      setBooks([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
+  // ✅ Refresh on page/searchTerm change (debounced)
   useEffect(() => {
-    fetchBooks(currentPage, searchTerm);
+    const delayDebounce = setTimeout(() => {
+      fetchBooks(currentPage, searchTerm);
+    }, 500);
+
+    return () => clearTimeout(delayDebounce);
   }, [currentPage, searchTerm]);
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1); // Reset to page 1 on search
+  // ✅ Show message
+  const showMessage = (text, type = "success") => {
+    setMessage(text);
+    setMessageType(type);
+    setTimeout(() => {
+      setMessage("");
+      setMessageType("");
+    }, 3000);
   };
 
+  // ✅ Delete Book
+  const handleDelete = async (id) => {
+    try {
+      const res = await viewBook.savedeletebook(id);
+      if (res.data.status === "delete") {
+        showMessage("✅ Book deleted successfully", "success");
+        fetchBooks(currentPage, searchTerm);
+      } else {
+        showMessage("❌ Failed to delete book", "error");
+      }
+    } catch (error) {
+      console.error("Error deleting book:", error);
+      showMessage("⚠️ Something went wrong", "error");
+    }
+  };
+
+  // ✅ Pagination
   const handlePrev = () => {
     if (currentPage > 1) setCurrentPage((prev) => prev - 1);
   };
@@ -45,35 +83,50 @@ export default function UserViewBooks() {
   };
 
   return (
-    <div className="uvb-main">
-      <Userslidebar />
-      <div className="uvb-content">
-        <h3 className="uvb-title">Search Books by Title</h3>
+    <div className="viewbook-page">
+     <Userpanel/>
+      <div className="viewbook-container">
+        <h3 className="viewbook-heading">📚 Book List</h3>
 
-        <div className="uvb-search-bar">
+        {/* 🔍 Search Bar */}
+        <div className="viewbook-search">
           <input
             type="text"
-            placeholder="Search by book title"
             value={searchTerm}
-            onChange={handleSearchChange}
+            onChange={(e) => {
+              setCurrentPage(1);
+              setSearchTerm(e.target.value);
+            }}
+            placeholder="🔍 Search book by title..."
+            className="search-input"
           />
+          {searchTerm && (
+            <button
+              className="clear-search"
+              onClick={() => setSearchTerm("")}
+              aria-label="Clear search"
+            >
+              ×
+            </button>
+          )}
         </div>
 
         {loading ? (
-          <p className="uvb-center-text">Loading books...</p>
+          <p className="loading-text">Loading books...</p>
         ) : (
           <>
-            <table className="uvb-table">
+            <table className="book-table">
               <thead>
                 <tr>
-                  <th>Sr.No</th>
+                  <th>S.No</th>
                   <th>Book Name</th>
                   <th>Author</th>
                   <th>Price</th>
                   <th>Published</th>
-                  <th>ISBN</th>
-                  <th>Category</th>
+                  <th>ISBN Code</th>
+                  <th>Category Name</th>
                   <th>Status</th>
+                
                 </tr>
               </thead>
               <tbody>
@@ -86,14 +139,15 @@ export default function UserViewBooks() {
                       <td>₹{book.book_price}</td>
                       <td>{book.book_published_date?.substring(0, 10)}</td>
                       <td>{book.isbn_code}</td>
-                      <td>{book.category_name}</td>
-                      <td>{book.status}</td>
+                      <td>{book.category_name || "Unknown"}</td>
+                      <td>{book.status || "N/A"}</td>
+                      
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="8" className="uvb-center-text">
-                      No books found
+                    <td colSpan="10" className="no-data">
+                      ❌ No books found
                     </td>
                   </tr>
                 )}
@@ -101,27 +155,34 @@ export default function UserViewBooks() {
             </table>
 
             {/* Pagination */}
-            <div className="uvb-pagination">
+            <div className="pagination-container">
               <button onClick={handlePrev} disabled={currentPage === 1}>
                 Prev
               </button>
-              {[...Array(totalPages)].map((_, idx) => {
-                const pageNum = idx + 1;
+              {[...Array(totalPages)].map((_, index) => {
+                const page = index + 1;
                 return (
                   <button
-                    key={pageNum}
-                    onClick={() => setCurrentPage(pageNum)}
-                    className={pageNum === currentPage ? "uvb-active" : ""}
+                    key={page}
+                    onClick={() => setCurrentPage(page)}
+                    className={page === currentPage ? "active" : ""}
                   >
-                    {pageNum}
+                    {page}
                   </button>
                 );
               })}
-              <button onClick={handleNext} disabled={currentPage === totalPages}>
+              <button
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+              >
                 Next
               </button>
             </div>
           </>
+        )}
+
+        {message && (
+          <div className={`message-box ${messageType}`}>{message}</div>
         )}
       </div>
     </div>

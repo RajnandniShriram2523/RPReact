@@ -1,16 +1,17 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, NavLink, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-// import Slidelinging from "./slidelinging";
+
 import Home from "./home";
 import About from "./about";
 import Contact from "./contact";
-import Login from '../src/component/login';
-import AdminSidebar from '../src/component/adminslidebar';
-import AddCategory from '../src/component/addcategory';
-import Addbook from "../src/component/addbook";
-import AddStudent from "../src/component/addstudent";
+import Login from "./component/login";
+
+import AdminSidebar from "./component/adminslidebar";
+import AddCategory from "./component/addcategory";
+import Addbook from "./component/addbook";
+import AddStudent from "./component/addstudent";
 import ViewCategory from "./component/viewcategory";
 import ViewBook from "./component/viewbook";
 import Viewstudent from "./component/viewstudent";
@@ -28,78 +29,56 @@ import UserViewBooks from "./component/UserViewBook";
 import ViewProfile from "./component/viewprofile.jsx";
 import Userpanel from "./component/userpanel";
 import UpdateStudent from "./component/updatestudent.jsx";
+import UserBookHistory from "./component/UserBookHistory.jsx";
+import UserReturnedBooks from "./component/UserViewOnlyReturnedHistory.jsx";
+import UserIssuedBooks from "./component/UserViewOnlyIssuedHistory.jsx";
 
+import PrivateRoute from "./component/PrivateRoute"; // ✅ role-based wrapper
+import Userdashboard from "./component/Userdashboard.jsx";
 
+class App extends React.Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
 
+          {/* Admin routes (protected) */}
+          <Route path="/adminsildebar" element={<PrivateRoute role="admin"><AdminSidebar /></PrivateRoute>} />
+          <Route path="/admindashboard" element={<PrivateRoute role="admin"><AdminDashboard /></PrivateRoute>} />
+          <Route path="/addcategory" element={<PrivateRoute role="admin"><AddCategory /></PrivateRoute>} />
+          <Route path="/viewcategory" element={<PrivateRoute role="admin"><ViewCategory /></PrivateRoute>} />
+          <Route path="/updatecategory/:id" element={<PrivateRoute role="admin"><UpdateCategory /></PrivateRoute>} />
+          <Route path="/addbook" element={<PrivateRoute role="admin"><Addbook /></PrivateRoute>} />
+          <Route path="/viewbook" element={<PrivateRoute role="admin"><ViewBook /></PrivateRoute>} />
+          <Route path="/updatebook/:id" element={<PrivateRoute role="admin"><UpdateBook /></PrivateRoute>} />
+          <Route path="/addstudent" element={<PrivateRoute role="admin"><AddStudent /></PrivateRoute>} />
+          <Route path="/viewstudent" element={<PrivateRoute role="admin"><Viewstudent /></PrivateRoute>} />
+          <Route path="/updatestudent/:id" element={<PrivateRoute role="admin"><UpdateStudent /></PrivateRoute>} />
+          <Route path="/AddIssuedBook" element={<PrivateRoute role="admin"><AddIssuedBook /></PrivateRoute>} />
+          <Route path="/viewissuedbook" element={<PrivateRoute role="admin"><Viewissuedbook /></PrivateRoute>} />
+          <Route path="/viewonlyissuedbook" element={<PrivateRoute role="admin"><ViewOnlyIssuedBooks /></PrivateRoute>} />
+          <Route path="/viewonlyreturnedbook" element={<PrivateRoute role="admin"><ViewOnlyReturnedBook /></PrivateRoute>} />
+          <Route path="/viewstudentbookdatabyid" element={<PrivateRoute role="admin"><ViewStudentBookData /></PrivateRoute>} />
+          <Route path="/viewstdbookdatabyuseremail" element={<PrivateRoute role="admin"><ViewStdBookDatabyEmail /></PrivateRoute>} />
 
-  class App extends React.Component {
-    render() {
-      return (
-        <BrowserRouter>
+          {/* Student/User routes (protected) */}
+          <Route path="/userpanel" element={<PrivateRoute role="student"><Userpanel /></PrivateRoute>} />
+         <Route path="/userdashboard" element={<PrivateRoute role="student"><Userdashboard /></PrivateRoute>} />
 
-          <nav className="navbar navbar-expand-lg ">
-            <NavLink className="navbar-brand" ><img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200_webp/c46c7f62556223.5a945f059c90e.png" /></NavLink>
-            <div className="collapse navbar-collapse">
-              <ul className="navbar-nav mr-auto">
-                {/* <li className="nav-item">
-                  <NavLink className="nav-link" to="/"></NavLink>
-                </li> */}
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/">Home</NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/about">About</NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/contact">Contact Us</NavLink>
-                </li>
-                {/* <li className="nav-item">
-                  <NavLink className="nav-link" to="services"></NavLink>
-                </li> */}
-              </ul>
-            </div>
-            {/* <div>
-              <Link to="/login" className=" btn-primary">Login</Link>
-              {/* <a href="/login" className="login_btn">Login</a> }
-            </div> */}
-          </nav>
-
-          <Routes>
-            {/* <Route path="/" element={<Slidelinging />} /> */}
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/adminsildebar" element={<AdminSidebar />} />
-            <Route path="/admindashboard" element={<AdminDashboard/>} />
-            <Route path="/addcategory" element={<AddCategory />} />
-            <Route path="/viewcategory" element={<ViewCategory />} />
-            <Route path="/updatecategory/:id" element={<UpdateCategory />} />
-            <Route path="/addbook" element={<Addbook />} />
-            <Route path="/viewbook" element={<ViewBook />} />
-           <Route path="/updatebook/:id" element={<UpdateBook />} />
-   
-            <Route path="/addstudent" element={<AddStudent />} />
-            <Route path="/viewstudent" element={<Viewstudent />} />
-            <Route path="/viewonlyissuedbook" element={<ViewOnlyIssuedBooks />} />
-            <Route path="/viewonlyreturnedbook" element={<ViewOnlyReturnedBook />} />
-            <Route path="/viewstudentbookdatabyid" element={<ViewStudentBookData />} />
-            <Route path="/viewstdbookdatabyuseremail" element={<ViewStdBookDatabyEmail />} />
-            <Route path="/AddIssuedBook" element={<AddIssuedBook />} />
-            <Route path="/viewissuedbook" element={<Viewissuedbook />} />
-
-
-            <Route path="/userpanel" element={<Userpanel />}/>
-              <Route path="/view-profile" element={<ViewProfile />}/>
-            <Route path="/userviewpanel" element={<UserViewBooks/>}/>
-             <Route path="/updatestudent/:id" element={<UpdateStudent />} />
-          </Routes>
-        </BrowserRouter>
-      );
-    }
+          <Route path="/view-profile" element={<PrivateRoute role="student"><ViewProfile /></PrivateRoute>} />
+          <Route path="/userviewbook" element={<PrivateRoute role="student"><UserViewBooks /></PrivateRoute>} />
+          <Route path="/userhistory" element={<PrivateRoute role="student"><UserBookHistory /></PrivateRoute>} />
+          <Route path="/userissued" element={<PrivateRoute role="student"><UserIssuedBooks /></PrivateRoute>} />
+          <Route path="/userreturned" element={<PrivateRoute role="student"><UserReturnedBooks /></PrivateRoute>} />
+        </Routes>
+      </BrowserRouter>
+    );
   }
-
-
-
+}
 
 export default App;

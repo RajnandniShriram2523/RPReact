@@ -58,7 +58,7 @@ export default function UpdateStudent() {
     <div className="main1000">
       
       <div className="update-wrapper">
-        <AdminSidebar />
+        {/* <AdminSidebar /> */}
         <div className="update-card">
           <div className="update-header">
             <h2>Update Student</h2>

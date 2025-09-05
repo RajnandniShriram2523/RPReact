@@ -58,7 +58,7 @@ const AddIssuedBook = () => {
   };
 
   const validateForm = () => {
-    if (!bookId.trim() || !studentId.trim() || !status.trim()) {
+    if (!bookId.trim() || !studentId.trim()) {
       setMsg("❗ All required fields must be filled.");
       setMsgType("error");
       return false;
@@ -135,7 +135,7 @@ const AddIssuedBook = () => {
         <br />
 
         {/* Return Date */}
-        <label>Return Date:</label>
+        {/* <label>Return Date:</label>
         <input
           type="date"
           value={returnDate}
@@ -143,14 +143,14 @@ const AddIssuedBook = () => {
         />
         <br />
 
-        {/* Status Dropdown */}
+        {/* Status Dropdown }
         <label>Status:</label>
         <select value={status} onChange={(e) => setStatus(e.target.value)}>
           <option value="">Select Status</option>
           <option value="issued">Issued</option>
           <option value="returned">Returned</option>
         </select>
-        <br />
+        <br /> */}
 
         {/* Buttons */}
         <div className="buttons">

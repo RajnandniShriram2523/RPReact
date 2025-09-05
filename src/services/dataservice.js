@@ -129,15 +129,11 @@ searchStudent(search, page = 1, limit = 6) {
     });
   }
 
-
-
-
-
-
-
-
-
-
+getUserHistoryById = (student_id) => {
+  console.log(student_id);
+  
+  return axios.get(`http://localhost:4000/myhistory/${student_id}`);
+};
 
 
 
@@ -210,15 +206,23 @@ searchOnlyIssuedBooksByStudentName(student_name) {
 
 
 
-viewUserAllBooks(page = 1, limit = 6) {
-    return axios.get(`http://localhost:4000/userviewbook`, {
-      params: { page, limit, status: "returned" }
-    });
-  }
+// viewUserAllBooks(page = 1, limit = 6, search = "", status = "") {
+//     return axios.get("http://localhost:4000/userviewbook", {
+//       params: { page, limit, search, status },
+//     });
+//   }
+
+getuserIssuedBooks(studentId) {
+  return axios.get(`http://localhost:4000/students/issued/${studentId}`)
+    .then((res) => res.data);
 }
 
 
-
+getuserReturnedBooks(studentId) {
+    return axios.get(`http://localhost:4000/students/returned/${studentId}`)
+      .then((res) => res.data);
+  }
+}
 
 export default new AddData();
 

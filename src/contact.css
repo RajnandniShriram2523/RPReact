@@ -17,7 +17,7 @@
 .contact-wrapper > h3 {
   text-align: center;
   font-size: 2.5rem;
-  color: orangered;
+  color:#0bb6c9;
   margin-bottom: 10px;
   font-weight: 700;
   letter-spacing: 1.2px;
@@ -45,7 +45,7 @@
   flex: 1 1 250px;
   background-color: #fff7f3;
   padding: 25px 30px;
-  border-left: 5px solid orangered;
+  border-left: 5px solid #0bb6c9;
   border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -60,7 +60,7 @@
 }
 
 .contact-item h2 {
-  color: orangered;
+  color:#0bb6c9;
   font-size: 1.5rem;
   margin-bottom: 12px;
   font-weight: 600;
@@ -88,11 +88,11 @@
   background-color: #f9f9f9;
   padding: 30px 25px;
   border-radius: 12px;
-  border: 2px solid orangered;
+  border: 2px solid #0bb6c9;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  box-shadow: 0 6px 18px rgba(255, 69, 0, 0.1);
+  box-shadow: 0 6px 18px #f9f9f9;
   transition: box-shadow 0.3s ease;
 }
 
@@ -103,7 +103,7 @@
 
 .contact-form h2 {
   text-align: center;
-  color: orangered;
+  color:#0bb6c9;
   margin-bottom: 20px;
   font-size: 2rem;
   font-weight: 700;
@@ -133,13 +133,13 @@
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: orangered;
+  border-color: #0bb6c9;
   box-shadow: 0 0 8px rgba(255, 69, 0, 0.4);
 }
 
 .contact-form button {
   padding: 14px 0;
-  background-color: orangered;
+  background-color:#0bb6c9;
   color: white;
   font-size: 1.2rem;
   font-weight: 700;
@@ -152,7 +152,7 @@
 
 .contact-form button:hover,
 .contact-form button:focus {
-  background-color: darkorange;
+  background-color: #0cdcf3;
   box-shadow: 0 6px 16px rgba(255, 140, 0, 0.5);
   outline: none;
 }
@@ -162,7 +162,7 @@
   background-color: #fff7f3;
   padding: 25px 20px;
   border-radius: 12px;
-  border-left: 5px solid orangered;
+  border-left: 5px solid#0bb6c9;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
   color: #555;
   font-size: 1rem;
@@ -170,7 +170,7 @@
 }
 
 .additional-info h2 {
-  color: orangered;
+  color: #0bb6c9;
   margin-top: 0;
   margin-bottom: 15px;
   font-weight: 700;
@@ -183,15 +183,15 @@
 
 /* Footer */
 .footer {
-  max-width: 900px;
+width: 850px;
   margin: 40px auto 20px;
   padding: 20px 30px;
   background-color: #fff7f3;
-  border-left: 5px solid orangered;
+  border-left: 5px solid #0bb6c9;
   border-radius: 0 0 12px 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
   text-align: center;
-  color: orangered;
+  color:#0bb6c9;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
   font-weight: 600;

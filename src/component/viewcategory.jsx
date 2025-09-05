@@ -17,17 +17,14 @@ export default function ViewCategory() {
         setLoading(true);
         try {
             let res;
-
-            // If there's a search term, use the search API
             if (search.trim()) {
-                res = await viewCategorys.saveSearchCategory(search, page, 6);
+                res = await viewCategorys.saveSearchCategory(search, page, 5);
                 const data = res.data;
                 setCategories(data.categoryList || []);
                 setCurrentPage(data.currentPage || 1);
                 setTotalPages(data.totalPages || 1);
             } else {
-                // No search term — fetch all categories
-                res = await viewCategorys.saveviewCategory(page, 6);
+                res = await viewCategorys.saveviewCategory(page, 5);
                 const data = res.data;
                 setCategories(data.categorylist || []);
                 setCurrentPage(data.currentPage || 1);
@@ -77,12 +74,12 @@ export default function ViewCategory() {
     };
 
     return (
-        <div className="main11">
+        <div className="category-main">
             <AdminSidebar />
             <div className="category-container">
                 <h3 className="category-title">Category List</h3>
 
-                {/* 🔍 Search Bar */}
+                {/* Search */}
                 <div className="search-bar2">
                     <input
                         type="text"
@@ -90,7 +87,7 @@ export default function ViewCategory() {
                         value={searchTerm}
                         placeholder="Search category..."
                         onChange={(e) => {
-                            setCurrentPage(1); // reset to page 1 when searching
+                            setCurrentPage(1);
                             setSearchTerm(e.target.value);
                         }}
                         className="search-input"
@@ -114,7 +111,7 @@ export default function ViewCategory() {
                         <table className="category-table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>SR.No</th>
                                     <th>CATEGORY NAME</th>
                                     <th>DELETE</th>
                                     <th>UPDATE</th>
@@ -124,13 +121,12 @@ export default function ViewCategory() {
                                 {categories.length > 0 ? (
                                     categories.map((cat, index) => (
                                         <tr key={cat.category_id}>
-                                            <td>{(currentPage - 1) * 6 + index + 1}</td>
+                                            <td>{(currentPage - 1) * 5 + index + 1}</td>
                                             <td>{cat.category_name}</td>
                                             <td>
                                                 <button
                                                     onClick={() => handleDelete(cat.category_id)}
                                                     className="link-button delete-button"
-                                                    aria-label={`Delete category ${cat.category_name}`}
                                                 >
                                                     🗑️
                                                 </button>
@@ -150,8 +146,8 @@ export default function ViewCategory() {
                             </tbody>
                         </table>
 
-                        {/* Pagination */}
-                        <div className="pagination-boxed">
+                        {/* Pagination inside container */}
+                        <div className="pagination-boxed1">
                             <button onClick={handlePrev} disabled={currentPage === 1}>Prev</button>
                             {[...Array(totalPages)].map((_, index) => {
                                 const page = index + 1;
@@ -170,7 +166,7 @@ export default function ViewCategory() {
                     </>
                 )}
 
-                <br />
+                {/* Message */}
                 {message && (
                     <div className={`custom-message ${messageType}`}>
                         {message}

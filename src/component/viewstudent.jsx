@@ -14,7 +14,7 @@ export default function Viewstudent() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
-  const PAGE_LIMIT = 3;
+  const PAGE_LIMIT = 5;
 
   // Show temporary messages
   const showMessage = (text, type = "success") => {
@@ -40,7 +40,7 @@ export default function Viewstudent() {
           showMessage("No students found", "info");
         }
       })
-      .catch(() => showMessage("Failed to fetch students", "error"))
+      .catch(() => showMessage("", "error"))
       .finally(() => setLoading(false));
   };
 
@@ -214,7 +214,7 @@ export default function Viewstudent() {
               <button onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
             </div>
 
-            {message && <div className={`custom-message1 ${messageType}`}>{message}</div>}
+            {message && <div className={`custom-message12 ${messageType}`}>{message}</div>}
           </>
         )}
       </div>

@@ -1,109 +1,162 @@
-/* Main container */
-.uvb-main {
+.viewbook-page {
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  min-height: 100vh;
-  background-color: #fffaf3; /* light cream */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* position: fixed; */
+  gap: 2%;
+  /* background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg"); */
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-/* Content area */
-.uvb-content {
-  flex: 1;
-  padding: 2rem;
-  margin: 2rem;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(255, 165, 0, 0.1);
+.viewbook-container {
+  /* flex: 1; */
+  padding: 10px;
+  overflow-y: auto;
+  margin-top: 30px;
+    background: #fcf8f8;
+width:78%;
+height: 86%;
+  border-radius: 10px;
+    box-shadow: 0 4px 15px blue;
+  
 }
 
-/* Title */
-.uvb-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #e65100; /* dark orange */
+.viewbook-heading {
   text-align: center;
+  font-size: 32px;
+  font-weight: bold;
   margin-bottom: 20px;
+  color: #0a0a0a;
+  /* text-shadow: 1px 1px 3px #000; */
+ 
 }
 
-/* Table */
-.uvb-table {
+.viewbook-search {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.search-input {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 300px;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.clear-search {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  margin-left: -30px;
+  cursor: pointer;
+  color: #888;
+}
+
+.book-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  color: rgb(17, 14, 14);
 }
 
-/* Table headers */
-.uvb-table th {
-  background-color: #ffe0b2; /* light orange */
-  color: #e65100; /* dark orange */
-  font-weight: 700;
-  padding: 12px 15px;
-  border: 1px solid #f0e0d0;
-  text-align: left;
-}
-
-/* Table data cells */
-.uvb-table td {
-  padding: 12px 15px;
-  border: 1px solid #f0e0d0;
-  color: #444;
-}
-
-/* Hover on rows */
-.uvb-table tbody tr:hover {
-  background-color: #fff3e0; /* very light orange */
-}
-
-/* Centered text helper */
-.uvb-center-text {
+.book-table th,
+.book-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
   text-align: center;
-  color: #555;
+  font-size: 14px;
 }
 
-/* Pagination container */
-.uvb-pagination {
+.book-table th {
+  background-color:#ff6600;
+  color: #fff;
+}
+
+.no-data {
+  text-align: center;
+  color: #ffcccc;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-action {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  text-decoration: none;
+}
+
+.btn-action:hover {
+  transform: scale(1.2);
+}
+
+.btn-delete {
+  color: red;
+}
+
+.btn-edit {
+  color: green;
+}
+
+.loading-text {
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+}
+
+.pagination-container {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
 }
 
-/* Pagination buttons */
-.uvb-pagination button {
-  background-color: #ff9800; /* orange */
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 5px;
+.pagination-container button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: white;
   cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.pagination-container button:hover {
+  background-color:#ff6600;
+  color: white;
+}
+
+.pagination-container .active {
+  background-color: #ff6600;
+  color: white;
+  /* border-color: #007bff; */
+}
+
+.message-box {
+  text-align: center;
+  margin: 20px auto;
+  max-width: 400px;
+  padding: 10px 20px;
+  border-radius: 5px;
   font-weight: 600;
-  transition: background-color 0.3s ease;
 }
 
-/* Hover effect for pagination buttons */
-.uvb-pagination button:hover:not(:disabled) {
-  background-color: #fb8c00; /* darker orange */
+.message-box.success {
+  color: green;
 }
 
-/* Disabled pagination buttons */
-.uvb-pagination button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-  color: #777;
-}
-
-/* Active pagination button */
-.uvb-active {
-  background-color: #e65100; /* dark orange */
-  font-weight: 700;
-}
-
-.uvb-search-bar {
-    margin-bottom: 15px;
-}
-
-.uvb-search-bar input {
-    width: 300px;
-    padding: 8px;
-    font-size: 14px;
+.message-box.error {
+  color: #ff4444;
 }

@@ -1,35 +1,73 @@
-.main12 {
- width: 100vw;
+.viewbook-page1 {
+  width: 100vw;
   height: 100vh;
-  background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
+  display: flex;
+  /* position: fixed; */
+  gap: 20%;
+  /* background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg"); */
   background-size: cover;
   background-repeat: no-repeat;
-  display: flex;
-  position: fixed;
-  gap: 4%;
 }
 
-.book-container {
-  flex: 1;
-  padding: 30px;
-  /* background-color: #fff; */
+.viewbook-container {
+  /* flex: 1; */
+  padding: 10px;
   overflow-y: auto;
+  margin-top: 30px;
+    background: #fcf8f8;
+width:78%;
+height: 86%;
+  border-radius: 10px;
+    box-shadow: 0 4px 15px blue;
+  
 }
 
-.book-title {
+.viewbook-heading {
   text-align: center;
-  font-size: 30px;
+  font-size: 32px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #f0f2f5;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #0a0a0a;
+  /* text-shadow: 1px 1px 3px #000; */
+ 
+}
+
+.viewbook-search {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.search-input {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 300px;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.clear-search {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  margin-left: -30px;
+  cursor: pointer;
+  color: #888;
 }
 
 .book-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  color:white;
+  color: rgb(17, 14, 14);
 }
 
 .book-table th,
@@ -41,36 +79,52 @@
 }
 
 .book-table th {
-  background-color:#007bff;
-  color: #f2f6f7;
+  background-color:#ff6600;
+  color: #fff;
 }
 
-.link-button {
+.no-data {
+  text-align: center;
+  color: #ffcccc;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-action {
   background: none;
   border: none;
   font-size: 18px;
   cursor: pointer;
   transition: transform 0.2s;
+  text-decoration: none;
 }
 
-.link-button:hover {
+.btn-action:hover {
   transform: scale(1.2);
 }
 
-.text-center {
-  text-align: center;
-  color: #666;
-  font-size: 16px;
+.btn-delete {
+  color: red;
 }
 
-.pagination-boxed {
+.btn-edit {
+  color: green;
+}
+
+.loading-text {
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+}
+
+.pagination-container {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
 }
 
-.pagination-boxed button {
+.pagination-container button {
   padding: 6px 12px;
   border: 1px solid #ccc;
   background-color: white;
@@ -79,65 +133,30 @@
   transition: all 0.3s ease;
 }
 
-.pagination-boxed button:hover {
-  background-color: #007bff;
+.pagination-container button:hover {
+  background-color:#ff6600;
   color: white;
 }
 
-.pagination-boxed .active {
-  background-color: #007bff;
+.pagination-container .active {
+  background-color: #ff6600;
   color: white;
-  border-color: #007bff;
+  /* border-color: #007bff; */
 }
-.custom-message-bottom {
-  text-align: center;       /* centers text inside the div */
-  margin: 20px auto;        /* adds vertical margin and centers the div horizontally */
-  max-width: 400px;         /* optional: limits width */
+
+.message-box {
+  text-align: center;
+  margin: 20px auto;
+  max-width: 400px;
   padding: 10px 20px;
   border-radius: 5px;
   font-weight: 600;
-  color: rgb(6, 184, 21);
 }
 
-/* .custom-message-bottom.success {
-  /* background-color: #4caf50; 
-} */
-
-.custom-message-bottom.error {
-  background-color: #f44336;
-}
-.search-bar1 {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-bottom: 15px;
-  /* background-color: #00ff22; */
-width:100%;
-
-
+.message-box.success {
+  color: green;
 }
 
-.search-input {
-    padding: 8px 12px;
-    font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    transition: border-color 0.3s;
-    border-radius: 10px;
-    /* background-color: #007bff; */
-}
-
-.search-input:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-.clear-search {
-    background: transparent;
-    border: none;
-    font-size: 18px;
-    margin-left: -30px;
-    cursor: pointer;
-    color: #888;
+.message-box.error {
+  color: #ff4444;
 }

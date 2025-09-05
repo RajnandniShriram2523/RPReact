@@ -1,11 +1,20 @@
 import React from "react";
 import "./about.css";
+import Navbar from "./component/navbar";
 
 class About extends React.Component {
   render() {
     return (
       <>
+      <div className="navbar1234">
+        <Navbar/>
+      </div>
+      <div >
+        <h1 className="heading123">About</h1>
+        </div>
         <div className="box">
+        
+          
           <div className="box1">
             <h2>📚 Store All Resource Information</h2>
             <p>
@@ -77,12 +86,11 @@ class About extends React.Component {
         </div>
 
         {/* Footer */}
-        <footer className="footer">
-          <p>© 2025 LibraryHub. All rights reserved.</p>
-          <p>
-            Designed & Developed by the LibraryHub Dev Team | 📚 Empowering Libraries
-            Everywhere
-          </p>
+        <footer className="footer2">
+
+           <p>© 2025 Library Hub. All Rights Reserved.</p>
+            <p>📧 libraryhub@gmail.com | ☎ +91-1919191919</p>
+
         </footer>
       </>
     );

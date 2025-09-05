@@ -1,0 +1,101 @@
+/* General container */
+.history-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Header */
+.history-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* Student info block */
+.student-info {
+  margin-bottom: 25px;
+  padding: 15px;
+  border-left: 5px solid #3498db;
+  background: #f9f9f9;
+  border-radius: 6px;
+}
+
+.student-info p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+/* Table */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.history-table th,
+.history-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.history-table th {
+  background-color: #3498db;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.history-table tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.history-table tr:hover {
+  background-color: #f1f7ff;
+  transition: 0.3s ease;
+}
+
+/* Status styles */
+.status {
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-align: center;
+  display: inline-block;
+}
+
+.returned {
+  background: #eafaf1;
+  color: #27ae60;
+}
+
+.overdue {
+  background: #fdecea;
+  color: #e74c3c;
+}
+
+.issued {
+  background: #fff7e6;
+  color: #e67e22;
+}
+
+/* Loading & error */
+.loading {
+  text-align: center;
+  color: #2980b9;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.error {
+  text-align: center;
+  color: #e74c3c;
+  font-size: 16px;
+  font-weight: 500;
+}

@@ -1,117 +1,121 @@
 /* Container */
 .main3 {
-width:100vw;
-    min-height:100vh;
-    /* background-color: rgb(207, 207, 15); */
-     background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
-    background-size:cover;
-    background-repeat: no-repeat; 
-    display:flex;
-    /* align-items: center; */
-    /* position:fixed; */
-    gap:3%;
-    /* justify-content: center;  */}
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fa;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  gap:18%;
+}
 
-
-   
-/* Form Wrapper */
+/* Form wrapper */
 .form2 {
   flex: 1;
-  /* padding: 40px; */
   max-width: 600px;
-  margin: auto;
-  /* background: white; */
-  border-radius: 12px;
-height:100%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-.form2 h2 {
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin-bottom: 30px;
-  margin-top: 10px;
-  color: #f0eaea;
+box-shadow: 0 4px 15px blue;
 }
 
-/* Input Fields */
+/* Title */
+.form2 h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Inputs and selects */
 .form2 input,
 .form2 select {
   width: 100%;
-  padding: 8px 14px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
+  padding: 12px 14px;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 15px;
-  height:7%;
-  display: flex;
-  gap:20%;
-  flex-direction: column;
-  transition: border-color 0.3s;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* .form2 input:focus,
+/* Focus effect */
+.form2 input:focus,
 .form2 select:focus {
-  border-color: #007bff;
-  outline: none;
-} */
+  border-color: #4a90e2;
+  box-shadow: 0 0 6px rgba(74, 144, 226, 0.3);
+}
 
-/* Buttons */
+/* Buttons wrapper */
 .buttons1 {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-  width: 100%; /* makes it full width of the form */
-  /* background-color: green; optional, for debug or styling */
-  /* padding: 0 10px; optional spacing inside */
-  gap: 10px; /*spacing between buttons */
+  margin-top: 1rem;
 }
 
-
-.bttn1,
-.btnn1 {
+/* Primary button */
+.bttn1 {
   flex: 1;
-  padding: 10px;
+  padding: 12px;
+  margin-right: 0.5rem;
+  background: #4a90e2;
+  color: black;
   font-size: 15px;
-  /* margin-right: 10px; */
-  background-color: #007bff;
-  color: white;
+  font-weight: 600;
   border: none;
-  width:20%;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.3s, transform 0.2s;
 }
 
-.bttn:hover,
-.btnn:hover {
-  background-color: #0056b3;
+.bttn1:hover {
+  background: #1e12ce;
+  transform: translateY(-2px);
+  color:white;
 }
 
-.btnn {
-  background-color: #6c757d;
+/* Secondary button */
+.btnn1 {
+  flex: 1;
+  padding: 12px;
+  margin-left: 0.5rem;
+  background:  #4a90e2;
+  color: black;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
 }
 
-.btnn:hover {
-  background-color: #495057;
+.btnn1:hover {
+  background:#1e12ce;
+  transform: translateY(-2px);
+  color: white;
 }
 
-/* Message Box */
-.message {
-  /* margin-top: 20px; */
-  /* padding: 10px; */
-  /* border-radius: 8px; */
-  /* font-size: 14px; */
+/* Message styles */
+.message1 {
+  margin-top: 1rem;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
   text-align: center;
 }
 
-.message.success {
-  /* background-color: #d4edda; */
-  color: #155724;
-  /* border: 1px solid #c3e6cb; */
+.message1.success {
+  /* background: #e6f9ec; */
+  color: green;
+  /* border: 1px solid #a5d6a7; */
 }
 
-.message.error {
-  /* background-color: #f8d7da; */
-  color: #721c24;
-  /* border: 1px solid #f5c6cb; */
+.message1.error {
+  /* background: #fdecea; */
+  color: red;
+  /* border: 1px solid #ef9a9a; */
 }

@@ -1,71 +1,163 @@
-.main4{
-    width:100vw;
-height:100vh;
-     /* background-color: rgb(215, 215, 212);   */
-     background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
-  background-size: cover;
-  background-repeat: no-repeat; 
-    display:flex;
-     /* align-items: center;  */
-    position:fixed;
-    gap:20%;
-    /* justify-content: center;  */
-
+/* Container with sidebar + form */
+.addstudent-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: #f1f5f9;
+  font-family: 'Segoe UI', sans-serif;
+  overflow-y: auto;
+  gap:20%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
+/* Form box */
+.addstudent-form {
+  flex: 1;
+  max-width: 480px;
+  margin: auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 35px 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
 
-.form3{
-    width:45%;
-    min-height:40%;
-    /* margin-top:10%; */
-    /* background-color: rgb(10, 238, 60); */
-      display:flex;  
-     /* text-align: center; */
+/* Heading */
+.addstudent-title {
+  color: #2563eb;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Input fields */
+.addstudent-input {
+  width: 100%;
+  height: 45px;
+  margin-bottom: 10px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+.addstudent-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+}
+
+/* Error messages */
+.addstudent-error {
+  color: #dc2626;
+  font-size: 0.85rem;
+  width: 100%;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+/* Server message */
+.addstudent-servermsg {
+  width: 100%;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+/* Button container */
+.addstudent-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 12px;
+}
+
+/* General button */
+.addstudent-btn {
+  flex: 1;
+  height: 45px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Submit button */
+.addstudent-btn-submit {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+.addstudent-btn-submit:hover {
+  background-color: #1e40af;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+/* Clear button */
+.addstudent-btn-clear {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+.addstudent-btn-clear:hover {
+  background-color: #b91c1c;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+}
+/* Server message */
+.addstudent-servermsg {
+  width: 100%;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Success message */
+.addstudent-servermsg.success {
+  /* background-color: #d1fae5; light green */
+  color: #0ddd06; /* dark green */
+  /* border: 1px solid #10b981; */
+}
+
+/* Error message */
+.addstudent-servermsg.error {
+  /* background-color: #fee2e2; light red */
+  color: #991b1b; /* dark red */
+  /* border: 1px solid #dc2626; */
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .addstudent-form {
+    width: 80%;
+    padding: 25px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .addstudent-container {
+    flex-direction: column;
     align-items: center;
-    /* text-align: center; */
-   /* justify-content: center; */
-    flex-direction: column; 
+    padding: 10px;
+  }
 
-}
+  .addstudent-form {
+    width: 100%;
+    margin-top: 20px;
+  }
 
-input{
-    width:90%;
-    height:50px;
-    border-radius: 10px;
-    text-decoration: none;
-} 
-.buttons{
-    width:90%;
-   height:40px;
-   align-items: center;
- /* background-color: rgb(116, 163, 163); */
-   color:black;
-    display:flex;  
-    justify-content: space-between;
-}
-.btn
-{
-   width:40%;
-   height:40px;
- background-color: rgb(16, 177, 221);
-   color:black
-}
-.btn:hover{
-    border: 2px solid white;
-   color: white;
-       background-color: blue;
-}
-.message {
-    margin-top: 25px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-}
+  .addstudent-buttons {
+    flex-direction: column;
+  }
 
-.success {
-    color: lightgreen;
-}
-
-.error {
-    color: red;
+  .addstudent-btn {
+    width: 100%;
+  }
 }

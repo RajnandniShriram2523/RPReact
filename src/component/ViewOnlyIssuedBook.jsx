@@ -8,7 +8,7 @@ export default function ViewOnlyIssuedBooks() {
   const [issuedBooks, setIssuedBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit] = useState(2);
+  const [limit] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 

@@ -8,7 +8,7 @@ export default function ViewOnlyReturnedBook() {
   const [returnedBooks, setReturnedBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [limit] = useState(3);
+  const [limit] = useState(5);
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState(""); // added search term
 

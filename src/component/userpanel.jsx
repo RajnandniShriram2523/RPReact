@@ -1,15 +1,16 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Use useNavigate hook
+import { Link, useNavigate } from 'react-router-dom';
+import { FaUser, FaBook, FaHistory, FaSignOutAlt, FaExchangeAlt, FaCheck } from 'react-icons/fa';
 import './userpanel.css';
 
 const Userpanel = () => {
-  const navigate = useNavigate(); // Initialize navigate hook
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    localStorage.removeItem("user"); // optional, if storing student data
-    navigate("/login"); // Now this works
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   return (
@@ -26,13 +27,40 @@ const Userpanel = () => {
 
       {/* Sidebar Links */}
       <ul className="data-list">
-        <li><Link className="sidebar-btn" to="/view-profile">Profile</Link></li>
-        <li><Link className="sidebar-btn" to="/userbook">View Books</Link></li>
-        <li><Link className="sidebar-btn" to="*">Issue Books</Link></li>
-        <li><Link className="sidebar-btn" to="*">Returned Books</Link></li>
-        <li><Link className="sidebar-btn" to="*">History</Link></li>
+         <li>
+          <Link className="sidebar-btn" to="/userdashboard">
+            <FaUser className="sidebar-icon"/> Dashboard
+          </Link>
+        </li>
         <li>
-          <input type='button' onClick={handleLogout} value="Logout" />
+          <Link className="sidebar-btn" to="/view-profile">
+            <FaUser className="sidebar-icon"/> Profile
+          </Link>
+        </li>
+        <li>
+          <Link className="sidebar-btn" to="/userviewbook">
+            <FaBook className="sidebar-icon"/> View Books
+          </Link>
+        </li>
+        <li>
+          <Link className="sidebar-btn" to="/userissued">
+            <FaExchangeAlt className="sidebar-icon"/> Issue Books
+          </Link>
+        </li>
+        <li>
+          <Link className="sidebar-btn" to="/userreturned">
+            <FaCheck className="sidebar-icon"/> Returned Books
+          </Link>
+        </li>
+        <li>
+          <Link className="sidebar-btn" to="/userhistory">
+            <FaHistory className="sidebar-icon"/> History
+          </Link>
+        </li>
+        <li>
+          <button className="sidebar-btn logout-btn" onClick={handleLogout}>
+            <FaSignOutAlt className="sidebar-icon"/> Logout
+          </button>
         </li>
       </ul>
     </aside>

@@ -32,15 +32,14 @@ const AdminSidebar = () => {
 
   return (
     <div className="sidebar-main">
-      <aside className="sidebar">
-        {/* Admin Profile */}
-        <div className="admin-profile">
-          <FaUserCircle className="profile-icon" />
-          <div className="admin-info">
-            <span className="admin-name">Admin Panel</span>
-            <span className="admin-role">Administrator</span>
-          </div>
-        </div>
+    <aside className="sidebar-modern">
+      {/* Profile */}
+      <div className="profile-box">
+        <FaUserCircle className="profile-pic" />
+        <h3>Admin Panel</h3>
+        <p>lab@admin</p>
+      </div>
+
 
         {/* Sidebar Menu */}
         <ul className="sidebar-list">

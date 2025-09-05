@@ -1,48 +1,122 @@
-.main2{
-    width:100vw;
-    height:100vh;
-    /* background-color: rgb(215, 215, 212); */
-     background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
-    background-size: cover;
-    background-repeat: no-repeat; 
-    display:flex;
-    /* align-items: center; */
-    /* position:fixed; */
-    gap:20%;
-    /* justify-content: center;  */
+/* Main layout */
+.main2 {
+  display: flex;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f3efef;
+  min-height: 100vh;
+  gap:17%;
+}
+
+/* Form container */
+.form1 {
+  flex: 1;
+  max-width: 500px;
+  height:20%;
+  margin: 150px auto;
+  padding: 30px;
+  background-color: #fcf8f8;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px blue;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* vertical spacing */
+}
+
+/* Heading */
+.title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Input */
+input[type="text"] {
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  width: 100%;
+}
+
+input[type="text"]:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0,123,255,0.3);
+}
+
+/* Buttons container */
+.button-container {
+  display: flex;
+  gap: 10px;
+  /* background-color: red; */
+  justify-content: space-around;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #007bff;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Clear button */
+.clear-btn1 {
+  background-color: #6c757d;
+  width:20%;
 
 }
 
-
-.form1{
-    width:45%;
-    height:30%;
-    margin-top:10%;
-    /* background-color: rgb(71, 77, 80); */
-    /* display:flex; */
-    /* align-items: center; */
-    text-align: center;
-   /* justify-content: center; */
-    flex-direction: column; 
-
+.clear-btn:hover {
+  background-color: #495057;
 }
 
-input{
-    width:400px;
-    height:50px;
-    border-radius: 10px;
-    text-decoration: none;
+/* Message */
+.msg {
+  font-size: 14px;
+  margin-top: 10px;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
 }
 
-.btn
-{
-   width:200px;
-   height:40px;
- background-color: rgb(16, 177, 221);
-   color:black
+.msg.success {
+  color: green;
 }
-.btn:hover{
-    border: 2px solid white;
-   color: white;
-   background-color: blue;
+
+.msg.error {
+  color: red;
+}
+@media (max-width: 700px) {
+  .form1 {
+    margin: 20px 10px;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  input[type="text"] {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 8px 12px;
+    min-width: 100%;
+  }
+
+  .button-container {
+    flex-direction: column; /* stack buttons vertically */
+  }
 }

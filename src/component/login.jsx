@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AdminAuthService from "../services/authservice.js";
-import './login.css';
+import "./login.css";
+import Navbar from "./navbar.jsx";
 
-function login() {
+function Login() {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState("");
@@ -20,15 +21,21 @@ function login() {
     try {
       if (role === "admin") {
         // 🔑 Admin login
-        const res = await AdminAuthService.login({ username, password, role });
+        const res = await AdminAuthService.login({
+          username,
+          password,
+        });
 
-        // Save token, role, and username
-        localStorage.setItem("token", res.token);
-        localStorage.setItem("role", res.role);
-        localStorage.setItem("username", res.username);
+        if (res?.token) {
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("role", "admin");
+          localStorage.setItem("username", res.username);
 
-        if (res.role === "admin") navigate("/admindashboard");
-
+          setMsg("✅ Admin login successful");
+          navigate("/admindashboard");
+        } else {
+          setError(res?.message || "❌ Admin login failed");
+        }
       } else {
         // 🔑 Student login
         const res = await AdminAuthService.userlogin({
@@ -36,75 +43,80 @@ function login() {
           student_password: password,
         });
 
-        if (res.status === "success") {
-          // ✅ Save token + role + user data for student
-          localStorage.setItem("token", res.token);
-          localStorage.setItem("role", "student");
-          AdminAuthService.setUserData(res.data);
-
-          setMsg(res.msg);
-          navigate("/userpanel");
+        // Check status from backend
+        if (res?.status === "success" && res?.token) {
+          // Store token, role, and student_id (already done in service)
+          setMsg("✅ Student login successful");
+          navigate("/userdashboard");
         } else {
-          setError(res.msg || "Login failed");
+          setError(res?.msg || "❌ Invalid email or password");
         }
       }
     } catch (err) {
-      setError(err.response?.data?.message || err.msg || "Login failed");
+      console.error("Login error:", err);
+      setError(err.response?.data?.msg || "❌ Login failed");
     }
   };
 
   return (
-    <div className="login-wrapper">
-      <div className="login-left">
-        <h2>Welcome to LibraryHub</h2>
+    <div className="n1">
+      <Navbar />
 
-        <form onSubmit={handleLogin}>
-          <div className="mb-3 text-start">
-            <label>Username</label>
-            <input
-              type={role === "admin" ? "text" : "email"}
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
+      <div className="login-wrapper">
+        <div className="login-left">
+          <h2>Welcome to LibraryHub</h2>
 
-          <div className="mb-3 text-start">
-            <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          <form onSubmit={handleLogin}>
+            <div className="mb-3 text-start">
+              <label>{role === "admin" ? " Username" : "Username"}</label>
+              <input
+                type={role === "admin" ? "text" : "email"}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
 
-          <div className="mb-3 text-start">
-            <label>Role:</label>
-            <select value={role} onChange={(e) => setRole(e.target.value)} required>
-              <option value="student">Student</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div>
+            <div className="mb-3 text-start">
+              <label>Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
 
-          {error && <p className="error-msg">{error}</p>}
-          {msg && <p className="success-msg">{msg}</p>}
+            <div className="mb-2 text-start">
+              <label>Role:</label>
+              <select
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+              >
+                <option value="student">Student</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
 
-          <button type="submit" className="btn-login">Login</button>
-        </form>
+            {error && <p className="error-msg">{error}</p>}
+            {msg && <p className="success-msg">{msg}</p>}
 
-        {/* Optional: student registration link */}
-        {/* {role === "student" && <Link to="/register" className="btn-std">Register as Student</Link>} */}
-      </div>
+            <button type="submit" className="btn-login">
+              Login
+            </button>
+          </form>
+        </div>
 
-      <div className="login-right">
-        <img
-          src="https://5.imimg.com/data5/SELLER/Default/2022/9/EL/GL/LK/53785480/college-software-500x500.png"
-          alt="Library Software"
-        />
+        <div className="login-right">
+          <img
+            src="https://5.imimg.com/data5/SELLER/Default/2022/9/EL/GL/LK/53785480/college-software-500x500.png"
+            alt="Library Software"
+          />
+        </div>
       </div>
     </div>
   );
 }
 
-export default login;
+export default Login;

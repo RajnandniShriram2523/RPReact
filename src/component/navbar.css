@@ -1,0 +1,72 @@
+body {
+
+  /* background-image: url("https://wallpapers.com/images/hd/library-background-zp3y3gk7am2pnsar.jpg");
+  background-size: cover;
+  background-repeat: no-repeat; */
+  /* background-position: center center; */
+  /* height: 100vh; */
+  width: 100vw;
+  overflow: hidden auto;
+  /* background-color:yellow; */
+  
+}
+
+
+/* Navbar container */
+.custom-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff7f3;
+  padding: 12px 40px;
+  border-bottom: 1px solid #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Logo */
+.custom-logo img {
+  height: 50px;
+  width: 100px;
+}
+
+/* Links wrapper */
+.custom-links ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Each link */
+.custom-link {
+  text-decoration: none;
+  font-size: 22px;
+  color: #333;
+  transition: color 0.3s ease;
+
+}
+
+.custom-link:hover {
+  color: #007bff;
+}
+
+/* Active link */
+.custom-link.active {
+  font-weight: bold;
+  color: #0056b3;
+}
+
+/* Login button */
+.custom-login .login-btn {
+  padding: 6px 16px;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.custom-login .login-btn:hover {
+  background: #0056b3;
+}

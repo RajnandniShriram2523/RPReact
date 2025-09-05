@@ -1,159 +1,59 @@
-/* Sidebar + Page Layout */
+/* Page Layout */
 .main13 {
- width: 100vw;
+  width: 100vw;
   height: 100vh;
-  background-image: url("https://img.freepik.com/free-vector/gradient-abstract-wireframe-background_23-2149009903.jpg?semt=ais_hybrid&w=740");
+  display: flex;
   background-size: cover;
   background-repeat: no-repeat;
-  display: flex;
+  gap: 20%;
   position: fixed;
-  gap: 4%;
 }
 
-/* Right side container (content area) */
+/* Right side content container */
 .student-container {
-    flex: 1;
-    padding: 2rem;
-    /* background-color: #fff; */
-    margin: 20px;
-    border-radius: 10px;
-    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
+  flex: 1;
+  padding: 2rem;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px blue;
+  background-color: #fff;
 }
 
 /* Title */
 .student-title {
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 25px;
-    text-align: center;
-    color: #f8f3f3;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-}
-
-/* Table Styles */
-.student-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-.student-table th,
-.student-table td {
-    border: 1px solid #f5efef;
-    padding: 12px 15px;
-    text-align: center;
-    font-size: 14px;
-    color: white;
-}
-
-.student-table thead {
-    background-color: #007bff;
-    color: #fff;
-}
-
-/* .student-table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
-} */
-
-/* .student-table tbody tr:hover {
-    background-color: #e6f7ff;
-} */
-
-/* Button Styles */
-.student-table button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 18px;
-    transition: transform 0.2s;
-}
-
-.student-table button:hover {
-    transform: scale(1.2);
-}
-
-/* Pagination */
-.pagination-boxed {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.pagination-boxed button {
-    padding: 6px 12px;
-    border: 1px solid #007bff;
-    background-color: white;
-    color: #007bff;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.pagination-boxed button:hover {
-    background-color: #007bff;
-    color: white;
-}
-
-.pagination-boxed button.active {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-    border: none;
-}
-
-/* Text Center */
-.text-center {
-    text-align: center;
-    color: #777;
-    padding: 20px 0;
-    font-size: 16px;
-}
-
-.custom-message1 {
-  margin-top: 12px;
-  padding: 10px 15px;
-  border-radius: 4px;
+  font-size: 28px;
   font-weight: 600;
+  margin-bottom: 20px;
   text-align: center;
-  max-width: 300px;       /* optional: controls message box width */
-  margin-left: auto;
-  margin-right: auto;
+  color: #0f0707;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.custom-message1.success {
-  /* background-color: #d4edda; */
-  color: #155724;
-}
-
-.custom-message1.error {
-  /* background-color: #f8d7da; */
-  color: #f5071f;
-}
-.search-bar {
+/* Search Bar */
+.search-bar1 {
   position: relative;
   display: flex;
   align-items: center;
-  max-width: 400px;
+  /* max-width: 400px; */
   margin-bottom: 16px;
+    width: 100%;
+    /* background-color: #007bff; */
 }
 
-/* Search input */
 .search-input {
   width: 100%;
-  padding: 8px 36px 8px 12px; /* extra right padding for clear button */
+  padding: 8px 36px 8px 12px; /* extra space for clear btn */
   border: 1px solid #ccc;
   border-radius: 6px;
   outline: none;
   font-size: 14px;
+  transition: border 0.2s;
 }
 
 .search-input:focus {
   border-color: #007bff;
 }
 
-/* Clear button inside input */
 .clear-btn {
   position: absolute;
   right: 10px;
@@ -168,3 +68,105 @@
   color: #f44336;
 }
 
+/* Table */
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+.student-table th,
+.student-table td {
+  border: 1px solid #080707;
+  padding: 12px 15px;
+  text-align: center;
+  font-size: 14px;
+  color: #0f0f0f;
+}
+
+.student-table thead {
+  background-color: orange;
+  color: white;
+}
+
+.student-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Action buttons inside table */
+.link-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.link-button:hover {
+  transform: scale(1.2);
+}
+
+/* Pagination */
+.pagination-boxed {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.pagination-boxed button {
+  padding: 6px 12px;
+  border: 1px solid orange;
+  background-color: #fff;
+  color: #007bff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.pagination-boxed button:hover {
+  background-color: orange;
+  color: #fff;
+}
+
+.pagination-boxed button.active {
+  background-color: orange;
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+/* Text Center */
+.text-center {
+  text-align: center;
+  color: #555;
+  padding: 15px 0;
+  font-size: 15px;
+}
+
+/* Success & Error Messages */
+.custom-message12 {
+  margin-top: 18px;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: center;
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 14px;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-message12.success {
+  background-color: #2fdf58;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.custom-message12.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}

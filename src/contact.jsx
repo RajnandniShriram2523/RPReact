@@ -1,8 +1,11 @@
 import React from "react";
 import "./contact.css";
+import Navbar from "./component/navbar";
 
 export default function Contact() {
   return (
+    <div className="navbar123">
+     <Navbar/>
     <main className="contact-wrapper" role="main" aria-label="Contact Us Section">
       <h3>Contact Us</h3>
       <p className="intro">
@@ -87,5 +90,6 @@ export default function Contact() {
         <p>Designed & Developed by the LibraryHub Team</p>
       </footer>
     </main>
+    </div>
   );
 }

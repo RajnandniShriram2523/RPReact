@@ -20,17 +20,15 @@ export default function ViewBook() {
       let res;
 
       if (search.trim() !== "") {
-        // 🔍 Call search API
-        res = await viewBook.searchBookByName(search, page, 6);
+        res = await viewBook.searchBookByName(search, page, 5);
       } else {
-        // 📚 Normal view API
-        res = await viewBook.saveviewBook(page, 6);
+        res = await viewBook.saveviewBook(page, 5);
       }
 
-     const data = res.data;
-setBooks(data.BookList || data.data || []); // support both APIs
-setCurrentPage(data.currentPage || data.page || page);
-setTotalPages(data.totalPages || 1);
+      const data = res.data;
+      setBooks(data.BookList || data.data || []);
+      setCurrentPage(data.currentPage || data.page || page);
+      setTotalPages(data.totalPages || 1);
     } catch (err) {
       console.error("Failed to fetch books:", err);
       setBooks([]);
@@ -39,16 +37,16 @@ setTotalPages(data.totalPages || 1);
     }
   };
 
-  // ✅ Refresh whenever page or searchTerm changes (with debounce)
+  // ✅ Refresh on page/searchTerm change (debounced)
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       fetchBooks(currentPage, searchTerm);
-    }, 500); // wait 500ms before API call
+    }, 500);
 
     return () => clearTimeout(delayDebounce);
   }, [currentPage, searchTerm]);
 
-  // ✅ Show success/error messages
+  // ✅ Show message
   const showMessage = (text, type = "success") => {
     setMessage(text);
     setMessageType(type);
@@ -84,21 +82,21 @@ setTotalPages(data.totalPages || 1);
   };
 
   return (
-    <div className="main12">
+    <div className="viewbook-page1">
       <AdminSidebar />
-      <div className="book-container">
-        <h3 className="book-title">Book List</h3>
+      <div className="viewbook-container">
+        <h3 className="viewbook-heading">📚 Book List</h3>
 
         {/* 🔍 Search Bar */}
-        <div className="search-bar1">
+        <div className="viewbook-search">
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => {
-              setCurrentPage(1); // reset to first page
+              setCurrentPage(1);
               setSearchTerm(e.target.value);
             }}
-            placeholder="Search book by title..."
+            placeholder="🔍 Search book by title..."
             className="search-input"
           />
           {searchTerm && (
@@ -113,7 +111,7 @@ setTotalPages(data.totalPages || 1);
         </div>
 
         {loading ? (
-          <p className="text-center">Loading books...</p>
+          <p className="loading-text">Loading books...</p>
         ) : (
           <>
             <table className="book-table">
@@ -135,17 +133,17 @@ setTotalPages(data.totalPages || 1);
                 {books.length > 0 ? (
                   books.map((book, index) => (
                     <tr key={book.book_id}>
-                      <td>{(currentPage - 1) * 6 + index + 1}</td>
+                      <td>{(currentPage - 1) * 5 + index + 1}</td>
                       <td>{book.book_title}</td>
                       <td>{book.book_author}</td>
-                      <td>{book.book_price}</td>
+                      <td>₹{book.book_price}</td>
                       <td>{book.book_published_date?.substring(0, 10)}</td>
                       <td>{book.isbn_code}</td>
                       <td>{book.category_name || "Unknown"}</td>
                       <td>{book.status || "N/A"}</td>
                       <td>
                         <button
-                          className="link-button delete-button"
+                          className="btn-action btn-delete"
                           onClick={() => handleDelete(book.book_id)}
                         >
                           🗑️
@@ -154,7 +152,7 @@ setTotalPages(data.totalPages || 1);
                       <td>
                         <NavLink
                           to={`/updatebook/${book.book_id}`}
-                          className="link-button"
+                          className="btn-action btn-edit"
                         >
                           ✍️
                         </NavLink>
@@ -163,8 +161,8 @@ setTotalPages(data.totalPages || 1);
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="10" className="text-center">
-                      No books found
+                    <td colSpan="10" className="no-data">
+                      ❌ No books found
                     </td>
                   </tr>
                 )}
@@ -172,7 +170,7 @@ setTotalPages(data.totalPages || 1);
             </table>
 
             {/* Pagination */}
-            <div className="pagination-boxed">
+            <div className="pagination-container">
               <button onClick={handlePrev} disabled={currentPage === 1}>
                 Prev
               </button>
@@ -199,9 +197,7 @@ setTotalPages(data.totalPages || 1);
         )}
 
         {message && (
-          <div className={`custom-message-bottom ${messageType}`}>
-            {message}
-          </div>
+          <div className={`message-box ${messageType}`}>{message}</div>
         )}
       </div>
     </div>
